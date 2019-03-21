@@ -1,0 +1,38 @@
+$sans-serif: '苹方',
+'微软雅黑',
+'MS YaHei',
+'Noto Sans',
+sans-serif;
+$monospace: 'Menlo',
+'Ubuntu Mono',
+'Consolas',
+'Source Code Pro',
+monospace;
+$secondary-text: rgba(0, 0, 0, 0.7);
+$prime-color: #0D566E;
+
+.comment {
+    border-left: $prime-color solid;
+    font-family: $sans-serif;
+    ;
+    padding: 8px 0 8px 16px;
+    margin-bottom: 8px;
+    background-color: rgba(13, 86, 110, 0.1);
+
+    .comment-info {
+        color: $secondary-text;
+        font-size: 16px;
+        font-family: $sans-serif;
+        ;
+        margin: 4px 0 4px;
+    }
+
+    .comment-publisher {
+        margin: 4px 0;
+    }
+
+    .comment-content {
+        font-family: $sans-serif;
+        ;
+    }
+}

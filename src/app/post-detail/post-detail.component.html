@@ -1,0 +1,42 @@
+<div class="container">
+  <header id="article-header">
+      <h1 class="article-title">昼雪</h1>
+      <h2 class="article-info">3 天前</h2>
+      <section class="article-intro" role="intro">
+          <p>
+              山不大，用一些地理知识目测得到的高度不过海拔五百米不到。 同四周一样，大陆性气候让这座山诡谲多变。
+              夏天树木郁郁葱葱；早可见树上滴落的露珠，午可观群鸟拍着翅膀冲上云霄，晚可听蝉鸣、赏群星。
+              冬天的阔叶林则变得光秃秃的，仅仅留下针叶树上反射刺眼阳光的树挂和寒枝上罕见的几点梅花：视野忽地就会开阔起来，一眼能望见山头、山脚的大河以及首都那高高的城郭。
+          </p>
+      </section>
+  </header>
+  <main>
+      <div class="main-content-wrapper">
+          <nav class="article-nav">
+              <div class="article-nav-wrapper">
+                  <h2>导航</h2>
+                  <ul id="nav-list">
+                  </ul>
+                  <section role="tools" id="tools">
+                      <div id="tool-list">
+                          <!-- 这里是 label 和 button 是 css 中的遗留问题，我不想改了。 -->
+                          <a href="/" class="tool">
+                              <label for="back">&lt;=&lt;</label><button id="back">返回</button>
+                          </a>
+                          <a href="#the-comment-title" class="tool">
+                              <label for="cmt">&lt;*&gt;</label><button id="cmt">评论</button>
+                          </a>
+                          <a href="#" class="tool">
+                              <label for="gotop">^^^</label><button id="gotop">回顶上</button>
+                          </a>
+                      </div>
+                  </section>
+              </div>
+          </nav>
+          <div id="article-container">
+              <section role="content" id="article-content"></section>
+              <app-comment-section></app-comment-section>
+          </div>
+      </div>
+  </main>
+</div>

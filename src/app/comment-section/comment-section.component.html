@@ -1,0 +1,6 @@
+<h1 id="the-comment-title">评论</h1>
+<section role="comments" id="comments">
+  <app-comment *ngFor="let comment of comments" [comment]="comment">
+  </app-comment>
+</section>
+<app-comment-editor></app-comment-editor>

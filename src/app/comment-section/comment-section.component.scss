@@ -1,0 +1,54 @@
+$sans-serif: '苹方',
+'微软雅黑',
+'MS YaHei',
+'Noto Sans',
+sans-serif;
+$monospace: 'Menlo',
+'Ubuntu Mono',
+'Consolas',
+'Source Code Pro',
+monospace;
+$secondary-text: rgba(0, 0, 0, 0.7);
+$prime-color: #0D566E;
+
+
+#author-of-comment {
+    --padding: 8px;
+    font-size: 20px;
+    border: none;
+    width: calc(100% - 2 * var(--padding));
+    padding: var(--padding);
+    transition: background-color .5s;
+
+    &:hover {
+        background: rgba(13, 86, 110, 0.1);
+    }
+
+    &:focus {
+        outline: none;
+        background: rgba(13, 86, 110, 0.1);
+    }
+}
+
+#the-comment-title {
+    font-size: 48px;
+    color: $prime-color;
+}
+
+
+#comment-editor {
+    width: 100%;
+}
+
+
+#comment-form {
+    margin-top: 16px;
+
+    .comment-label {
+        font-family: $sans-serif;
+        ;
+        display: inline-block;
+        margin: 4px 4px 4px 4px;
+    }
+}
+
