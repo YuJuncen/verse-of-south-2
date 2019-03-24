@@ -18,10 +18,14 @@ a {
 }
 
 #tools {
+
+
     #tool-list {
         a {text-decoration: none;}
         list-style-type: none;
-
+        @media (max-width: 720px) {
+            & { display: none; }
+        }
         .tool {
             display: block;
             transition: all .5s;

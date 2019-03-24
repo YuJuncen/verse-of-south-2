@@ -13,6 +13,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { IndexViewComponent } from './index-view/index-view.component';
 import { BreifPostComponent } from './breif-post/breif-post.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { IndexPostListComponent } from './index-post-list/index-post-list.component';
+import { SearchPostListComponent } from './search-post-list/search-post-list.component';
 
 
 @NgModule({
@@ -27,6 +29,8 @@ import { NotFoundComponent } from './not-found/not-found.component';
     IndexViewComponent,
     BreifPostComponent,
     NotFoundComponent,
+    IndexPostListComponent,
+    SearchPostListComponent,
   ],
   imports: [
     BrowserAnimationsModule,

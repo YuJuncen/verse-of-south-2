@@ -29,6 +29,12 @@ $prime-color: #0D566E;
     width: 100vmin;
     height: 100vmin;
     border-radius: 50%;
+    @media(max-width: 720px) {
+        & {
+            border-radius: 4px !important;
+            box-shadow: 4px 2px 1em rgba(13, 86, 110, 0.4);
+        }
+    }
 
     .padding-provider {
         padding: 0 4em;
@@ -54,8 +60,3 @@ $prime-color: #0D566E;
     }
 }
 
-@media(max-width: 720px) {
-    body {
-        margin: 0;
-    }
-}

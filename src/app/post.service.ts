@@ -18,8 +18,8 @@ export class PostService {
     return from(this.cached).pipe(take(2), delay(300));
   }
 
-  searchBreifPosts(term: string) : Observable<Post[]> {
-    return of(MOCK_POSTS).pipe(map(ps => ps.filter(p => p.title.search(term) != -1)));
+  searchBreifPosts(term: string) : (offset: number, limit: number) => Observable<Post[]> {
+    return (_offset, _limit) => of(MOCK_POSTS).pipe(map(ps => ps.filter(p => p.title.search(term) != -1)));
   }
 
   constructor() { }
