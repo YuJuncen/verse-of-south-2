@@ -1,10 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { Post } from './post';
-import MOCK_POSTS from './mock-posts';
 import { trigger, transition, style, animate } from '@angular/animations';
-import { interval, Observable, concat } from 'rxjs';
-import { finalize, take, toArray, flatMap, map } from 'rxjs/operators';
+import { finalize, skip, throttleTime } from 'rxjs/operators';
 import { PostService } from '../post.service';
+import { Title } from '@angular/platform-browser';
+import { Observable, Subject } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-index-view',
@@ -15,27 +16,50 @@ import { PostService } from '../post.service';
     transition(":leave", animate('.5s', style({opacity: 0})))
   ])],
 })
-export class IndexViewComponent implements OnInit {
+export class IndexViewComponent implements OnInit, AfterViewInit {
   posts : Post[] = [];
   hint: string;
-
+  @ViewChild("Bottom", {read: ElementRef}) articleList : ElementRef;
+  private io : IntersectionObserver;
+  scrollToBottom$ : Subject<IntersectionObserverEntry> = 
+    new Subject<IntersectionObserverEntry>();
   
   loading: boolean = true;
 
-  constructor(private postSerivce: PostService) { }
+  constructor(private postService: PostService,
+              private titleService: Title,
+              private router: Router) { }
 
   search(term: String) {
-    
+    if (term.length) {
+      this.router.navigate(['search', term]);
+    }
   }
 
   more() {
     this.loading = true;
-    this.postSerivce.moreBreifPosts().pipe(finalize(() => this.loading = false))
+    this.postService.moreBreifPosts().pipe(finalize(() => this.loading = false))
       .subscribe(p => this.posts.push(p));
   }
 
   ngOnInit() {
-    this.postSerivce.getBreifPosts().pipe(finalize(() => this.loading = false))
+    this.titleService.setTitle("南方之诗");
+    this.postService.getBreifPosts().pipe(finalize(() => this.loading = false))
       .subscribe(p => this.posts.push(p));
+    this.io = new IntersectionObserver((entries, _observer) => {
+      entries.forEach( e => {
+        if (e.isIntersecting) {
+          this.scrollToBottom$.next(e);
+        }
+      })
+    }, {threshold: 1});
+  }
+
+  ngAfterViewInit() {
+    this.io.observe(this.articleList.nativeElement);
+    this.scrollToBottom$.pipe(
+      skip(1),
+      throttleTime(500)
+    ).subscribe(e => this.more());
   }
 }

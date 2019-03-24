@@ -9,7 +9,7 @@
             <nav role="tools" id="tools">
                 <div class="tools-wrapper">
                     <section role="search-bar" id="search-bar">
-                        <input class="search-bar" type="text" autocomplete="off" placeholder="搜索">
+                        <input #SearchBar (input)="search(SearchBar.value)" class="search-bar" type="text" autocomplete="off" placeholder="搜索">
                     </section>
                     <div id="tool-list">
                         <a class="tool" (click)="more()">
@@ -39,8 +39,8 @@
                         <app-breif-post [post]="post"></app-breif-post>
                     </div>
                 </section>
-                <section @In *ngIf="loading" role="loading-symbol" id="loading-sym">
-                    <div class="loading-container">
+                <section #Bottom role="loading-symbol" id="loading-sym">
+                    <div @In *ngIf="loading" class="loading-container">
                         <div class="loading-dot d0"></div>
                         <div class="loading-dot d1"></div>
                         <div class="loading-dot d2"></div>

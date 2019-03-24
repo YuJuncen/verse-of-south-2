@@ -24,6 +24,7 @@
     "@types/markdown-it": "0.0.7",
     "core-js": "^2.5.4",
     "highlight.js": "^9.15.6",
+    "intersection-observer": "^0.5.1",
     "luxon": "^1.11.4",
     "markdown-it": "^8.4.2",
     "rxjs": "~6.3.3",

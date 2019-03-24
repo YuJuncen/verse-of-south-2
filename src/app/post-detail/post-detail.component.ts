@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation, ViewChild, ElementRef, AfterViewInit, AfterViewChecked } from '@angular/core';
 import { DetailedPost } from './detailed-post';
 import MOCK_POST from './mock-post';
+import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-post-detail',
   templateUrl: './post-detail.component.html',
@@ -14,10 +15,11 @@ export class PostDetailComponent implements OnInit, AfterViewInit {
   titles: {title: string, ele: any}[] = [];
   post: DetailedPost;
 
-  constructor() { }
+  constructor(private titleService : Title) { }
 
   ngOnInit() {
     this.post = MOCK_POST;
+    this.titleService.setTitle(this.post.title);
   }
 
   goToComment() {
