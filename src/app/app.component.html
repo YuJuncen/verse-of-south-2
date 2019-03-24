@@ -1,4 +1,10 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<app-post-detail></app-post-detail>
-
-<router-outlet></router-outlet>
+<nav>
+    <span id="vos"><em>南方之诗 [Developing]</em></span>
+    <a [routerLink]="[ '/' ]">首页</a>
+    <a [routerLink]="[ '/post/0' ]">文章</a>
+    <a [routerLink]="[ '/404' ]">错误页面</a>
+</nav>
+<div class="container">
+    <router-outlet></router-outlet>
+</div>

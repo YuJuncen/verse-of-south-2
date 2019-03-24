@@ -1,0 +1,159 @@
+/* the animation. */
+/** common CSS Start */
+$sans-serif: '苹方',
+'微软雅黑',
+'MS YaHei',
+'Noto Sans',
+sans-serif;
+$monospace: 'Menlo',
+'Ubuntu Mono',
+'Consolas',
+'Source Code Pro',
+monospace;
+$secondary-text: rgba(0, 0, 0, 0.7);
+$prime-color: #0D566E;
+@keyframes jumping {
+    0% {
+    }
+
+    25% {
+        transform:  translateY(10%);
+    }
+
+    75% {
+        transform:  translateY(-10%);
+    }
+
+    100% {
+    }
+}
+
+.d0 {
+    animation-delay: 0;
+}
+
+.d1 {
+    animation-delay: .33s;
+}
+
+.d2 {
+    animation-delay: .67s;
+}
+
+
+input:focus {
+    outline: none;
+}
+
+header.intrduction {
+    font-family: '宋体', serif;
+    font-size: 56px;
+    padding: 0 32px 16px 32px;
+    font-weight: normal;
+    border-left-style: solid;
+}
+
+header.intrduction > em {
+    font-weight: bolder;
+    font-style: normal;
+    color: #0D566E;
+}
+
+@keyframes flink {
+    0% {color: #0D566E;}
+    50% {color: #08192D;}
+    100% {color: #0D566E;}
+}
+
+a:disabled {
+    color: rgba(0, 0, 0, 0.78);
+}
+
+a:visited {
+    color: #08192D;
+}
+
+a:hover {
+    color: #08192D;
+}
+
+a {
+    color: #0D566E;
+    text-decoration: none;
+    transition: all .5s;
+}
+
+#vos-footer {
+    color: rgba(0, 0, 0, 0.78)
+}
+
+.main-conent-wrapper {
+    padding: 0 8px 0 8px;
+}
+
+
+#tools > .tools-wrapper {
+    margin-left: 8px;
+    position: sticky;
+    position: -webkit-sticky;
+    border-top-style: solid;
+    top: 8px;
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+#archives .archive-list {
+    list-style: none;
+}
+
+#archives .archive-list > li {
+    font-family: sans-serif;
+} 
+
+#search-bar .search-bar {
+    border: none;
+    width: calc(100% - 16px);
+    transition: all .3s;
+    transition-timing-function: ease-in-out;
+    
+}
+
+#loading-sym .loading-container {
+    transition: all .3s;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    opacity: 1;
+    height: 16px;
+}
+
+#loading-sym .loading-dot {
+    width: 8px;
+    height: 8px;
+    margin: 0 8px;
+    display: inline-block;
+    background-color: #268785;
+    animation-name: jumping;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-timing-function: cubic-bezier(0.455, 0.03, 0.515, 0.955);
+}
+
+#the-article-type {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 8px;
+}
+
+#the-article-type .hint-container {
+    transition: .5s all ease-in-out;
+    border-top: solid;
+    font-size: 32px;
+    margin-bottom: 32px;
+    background: rgba(255,255,255,.9);
+    color: #268785;
+    font-weight: bolder;
+    padding-left: 8px; 
+    font-family: '宋体', serif;
+}
+

@@ -1,0 +1,42 @@
+/** common CSS Start */
+$sans-serif: '苹方',
+'微软雅黑',
+'MS YaHei',
+'Noto Sans',
+sans-serif;
+$monospace: 'Menlo',
+'Ubuntu Mono',
+'Consolas',
+'Source Code Pro',
+monospace;
+$secondary-text: rgba(0, 0, 0, 0.7);
+$prime-color: #0D566E;
+
+
+#post-content {
+    p, li{
+        font-size: 20px;
+        font-family: '宋体', serif;
+    }
+
+    h1 {
+        font-size: 30px;
+        font-family: '宋体', serif;
+    }
+
+    code:not(.hljs) {
+        font-size: .8em;
+        background: #eee;
+        color: $prime-color;
+        margin: 0 .2em;
+        padding: .125em .1em;
+    }
+
+    code {
+        font-family: $monospace;
+    }
+
+    code.hljs {
+        font-size: 16px;
+    }
+}

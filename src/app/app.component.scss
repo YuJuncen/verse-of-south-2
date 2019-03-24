@@ -1,0 +1,44 @@
+/** common CSS Start */
+$sans-serif: '苹方',
+'微软雅黑',
+'MS YaHei',
+'Noto Sans',
+sans-serif;
+$monospace: 'Menlo',
+'Ubuntu Mono',
+'Consolas',
+'Source Code Pro',
+monospace;
+$secondary-text: rgba(0, 0, 0, 0.7);
+$prime-color: #0D566E;
+$serif: '宋体', serif;
+
+.container {
+    margin: auto;
+    max-width: 1080px;
+}
+
+#vos {
+    margin-right: 2em;
+}
+
+nav {
+    padding: 8px 64px;
+    margin: -8px -8px 0 -8px;
+    background: #eee; 
+    em {
+        font-size: 24px;
+        font-family: $serif;
+        font-style: normal;
+        color: $prime-color;
+    }
+    a {
+        font-size: 16px;
+        display: inline-block; 
+        width: 4em;
+        font-family: $sans-serif;
+        color: $secondary-text;
+        text-decoration: none;
+    }
+}
+

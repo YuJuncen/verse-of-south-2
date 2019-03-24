@@ -1,0 +1,52 @@
+<div class="except-footer-content-wrapper">
+        <header class="intrduction">
+            这是<em>南方之诗</em>，<br />
+            在计算机科学的天空中，<br />
+            用不安、憧憬、无知编织而成的故事。
+        </header>
+
+        <div class="main-conent-wrapper">
+            <nav role="tools" id="tools">
+                <div class="tools-wrapper">
+                    <section role="search-bar" id="search-bar">
+                        <input class="search-bar" type="text" autocomplete="off" placeholder="搜索">
+                    </section>
+                    <div id="tool-list">
+                        <a class="tool" (click)="more()">
+                            <label for="back" >***</label><button id="back">更多！</button>
+                        </a>
+                        <a class="tool" (click)="more()">
+                            <label for="back" >&lt;?&gt;</label><button id="back">关于</button>
+                        </a>
+                    </div>
+                    <section role="archive" id="archives">
+                        <h2>归档</h2>
+                        <ol class="archive-list">
+                            <li><a href="#"> 2018 年 </a></li>
+                            <li><a href="#archives"> 2017 年 </a></li>
+                        </ol>
+                    </section>
+                </div>
+            </nav>
+            <section role="the-article-list" id="the-article-list">
+                <section role="hint-of-article-list" id="the-article-type">
+                    <div class="hint-container" *ngIf="hint" >
+                        {{ hint }}
+                    </div>
+                </section>
+                <section id="articles">
+                    <div @In *ngFor="let post of posts" >
+                        <app-breif-post [post]="post"></app-breif-post>
+                    </div>
+                </section>
+                <section @In *ngIf="loading" role="loading-symbol" id="loading-sym">
+                    <div class="loading-container">
+                        <div class="loading-dot d0"></div>
+                        <div class="loading-dot d1"></div>
+                        <div class="loading-dot d2"></div>
+                    </div>
+                </section>
+            </section>
+
+        </div>
+    </div>

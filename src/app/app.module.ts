@@ -7,6 +7,13 @@ import { PostDetailComponent } from './post-detail/post-detail.component';
 import { CommentEditorComponent } from './comment-editor/comment-editor.component';
 import { CommentSectionComponent } from './comment-section/comment-section.component';
 import { CommentComponent } from './comment/comment.component';
+import { PostComponent } from './post/post.component';
+import { PostContentComponent } from './post-content/post-content.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { IndexViewComponent } from './index-view/index-view.component';
+import { BreifPostComponent } from './breif-post/breif-post.component';
+import { NotFoundComponent } from './not-found/not-found.component';
+
 
 @NgModule({
   declarations: [
@@ -14,11 +21,17 @@ import { CommentComponent } from './comment/comment.component';
     PostDetailComponent,
     CommentEditorComponent,
     CommentSectionComponent,
-    CommentComponent
+    CommentComponent,
+    PostComponent,
+    PostContentComponent,
+    IndexViewComponent,
+    BreifPostComponent,
+    NotFoundComponent,
   ],
   imports: [
+    BrowserAnimationsModule,
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,61 @@
+/** common CSS Start */
+$sans-serif: '苹方',
+'微软雅黑',
+'MS YaHei',
+'Noto Sans',
+sans-serif;
+$monospace: 'Menlo',
+'Ubuntu Mono',
+'Consolas',
+'Source Code Pro',
+monospace;
+$secondary-text: rgba(0, 0, 0, 0.7);
+$prime-color: #0D566E;
+
+
+.center-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &.auto-fill {
+        height: 100vh;
+        min-height: 100vh;
+    }
+}
+
+
+#not-found-container {
+    background: linear-gradient(45deg, $prime-color, #0B346E);
+    width: 100vmin;
+    height: 100vmin;
+    border-radius: 50%;
+
+    .padding-provider {
+        padding: 0 4em;
+        display: flex;
+        align-items: center;
+    }
+
+    p {
+        @media(max-width: 720px) {
+            text-indent: 1em;
+        }
+        font-size: 3vh;
+        color: white;
+        font-weight: lighter;
+        font-family: '宋体', serif;
+    }
+    em {
+        font-size: 6vh;
+        color: white;
+        font-style: normal;
+        font-weight: bolder;
+        margin-right: 8px;
+    }
+}
+
+@media(max-width: 720px) {
+    body {
+        margin: 0;
+    }
+}
