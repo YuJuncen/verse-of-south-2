@@ -39,7 +39,6 @@ $prime-color: #0D566E;
 nav.article-nav>.article-nav-wrapper {
     position: sticky;
     position: -webkit-sticky;
-    border-top: solid;
     margin-left: 8px;
     top: 8px;
 }
@@ -102,8 +101,7 @@ nav.article-nav {
 }
 
 #article-header {
-    border-left: solid $prime-color;
-    padding: 0 32px 16px 32px;
+    padding: 0 0 16px 0;
 
     .article-title {
         font-size: 64px;

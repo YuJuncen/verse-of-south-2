@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PostService } from '../post.service';
 import { Post } from '../index-view/post';
-import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
+import { Router, NavigationEnd, ActivatedRoute, Params } from '@angular/router';
 import { map, filter, switchMap, share, tap, skip } from 'rxjs/operators';
 import { Observable, concat, of } from 'rxjs';
 import { trigger, transition, style, animate } from '@angular/animations';
@@ -20,15 +20,16 @@ export class SearchPostListComponent implements OnInit {
   static LIMIT = 5;
   hint$: Observable<string>;
   posts$: Observable<Post[]>;
+  params$: Observable<Params>;
   constructor(private postService: PostService,
               private route: ActivatedRoute) { }
 
   ngOnInit() {
-    let params$ = this.route.queryParams;
-    this.hint$ = params$.pipe(
+    this.params$ = this.route.queryParams;
+    this.hint$ = this.params$.pipe(
       map(url => `“${url['term']}” 的搜索结果`)
     );
-    this.posts$ = params$.pipe(
+    this.posts$ = this.params$.pipe(
       switchMap(url => this.postService.searchBreifPosts(url['term'])(0, SearchPostListComponent.LIMIT))
     );
   }

@@ -9,7 +9,7 @@
     <nav role="tools" id="tools">
       <div class="tools-wrapper">
         <section role="search-bar" id="search-bar">
-          <input #SearchBar (keyup.enter)="doSearch(SearchBar.value)" (input)="search(SearchBar.value)" class="search-bar"
+          <input #SearchBar [value]="this.params$ | async" (keyup.enter)="doSearch(SearchBar.value)" (input)="search(SearchBar.value)" class="search-bar"
             type="text" autocomplete="off" placeholder="搜索">
         </section>
         <div id="tool-list">

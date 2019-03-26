@@ -1,11 +1,12 @@
 import { Component, OnInit, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { Post } from './post';
 import { trigger, transition, style, animate } from '@angular/animations';
-import { finalize, skip, throttleTime, debounceTime } from 'rxjs/operators';
+import { finalize, skip, throttleTime, debounceTime, map } from 'rxjs/operators';
 import { PostService } from '../post.service';
 import { Title } from '@angular/platform-browser';
 import { Observable, Subject } from 'rxjs';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-index-view',
@@ -15,9 +16,11 @@ import { Router } from '@angular/router';
 })
 export class IndexViewComponent implements OnInit {
   searchTerms$: Subject<string> = new Subject<string>();
+  params$: Observable<Params>;
 
   constructor(private titleService: Title,
-              private router: Router) { }
+              private router: Router,
+              private arouter: ActivatedRoute) { }
 
   search(term: string) {
     this.searchTerms$.next(term);
@@ -29,6 +32,7 @@ export class IndexViewComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.params$ = this.arouter.queryParams.pipe(map(url => url['term'] || ""));
     this.titleService.setTitle("南方之诗");
     this.searchTerms$.pipe(
       debounceTime(500),

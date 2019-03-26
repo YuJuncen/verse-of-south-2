@@ -15,6 +15,7 @@ import { BreifPostComponent } from './breif-post/breif-post.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { IndexPostListComponent } from './index-post-list/index-post-list.component';
 import { SearchPostListComponent } from './search-post-list/search-post-list.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { SearchPostListComponent } from './search-post-list/search-post-list.com
     NotFoundComponent,
     IndexPostListComponent,
     SearchPostListComponent,
+    ReactiveFormsModule
   ],
   imports: [
     BrowserAnimationsModule,
