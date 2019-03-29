@@ -84,6 +84,8 @@ a {
     border: none;
     width: calc(100% - 16px);
     transition: all .3s;
+    margin: 0;
+    height: 1.5em;
     transition-timing-function: ease-in-out;
 }
 

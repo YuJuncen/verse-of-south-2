@@ -32,9 +32,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     NotFoundComponent,
     IndexPostListComponent,
     SearchPostListComponent,
-    ReactiveFormsModule
   ],
   imports: [
+    // ReactiveFormsModule,
     BrowserAnimationsModule,
     BrowserModule,
     AppRoutingModule,

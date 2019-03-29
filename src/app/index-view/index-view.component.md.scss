@@ -1,114 +1,118 @@
 @media(min-width: 720px) {
-    .main-conent-wrapper {
-        display: flex;
-        flex-direction: row-reverse;
-    }
+  .main-conent-wrapper {
+    display: flex;
+    flex-direction: row-reverse;
+  }
 
-    #the-article-list {
-        flex-basis: 75%;
-    }
+  #the-article-list {
+    flex-basis: 75%;
+  }
 
-    #tools {
-        flex-basis: 25%;
-    }
+  #tools {
+    flex-basis: 25%;
+  }
 
-    #search-bar .search-bar {
-        font-size: 20px;
-        padding: 4px 8px;
-        background:#eee;
-        color: black;
-        font-family: '苹方', 'MS YaHei', 'Noto Sans', sans-serif;
-    }
+  #search-bar .search-bar {
+    font-size: 20px;
+    padding: 4px 8px;
+    background: #eee;
+    color: black;
+    font-family: '苹方', 'MS YaHei', 'Noto Sans', sans-serif;
+  }
 
-    #search-bar .search-bar:focus {
-        background: #0D566E;
-        color: white;
-        font-family: '苹方', 'MS YaHei', 'Noto Sans', sans-serif;
-    }
+  #search-bar .search-bar:focus {
+    background: #0D566E;
+    color: white;
+    font-family: '苹方', 'MS YaHei', 'Noto Sans', sans-serif;
+  }
 
-    #search-bar .search-bar:focus::placeholder {
-        color: rgba(255, 255, 255, 0.8);
-    }
+  #search-bar .search-bar:focus::placeholder {
+    color: rgba(255, 255, 255, 0.8);
+  }
 
-    /* For Microsoft Edge */
-    #search-bar .search-bar:focus::-ms-input-placeholder {
-        color: rgba(255, 255, 255, 0.8);
-    }
+  /* For Microsoft Edge */
+  #search-bar .search-bar:focus::-ms-input-placeholder {
+    color: rgba(255, 255, 255, 0.8);
+  }
 }
 
 @media(max-width: 720px) {
-    header.intrduction {
-        font-size: 32px !important;
-        border: none !important;
-        padding: 0px 8px !important;
+  header.intrduction {
+    font-size: 32px !important;
+    border: none !important;
+    padding: 0px 8px !important;
+  }
+
+  #tools {
+    padding: 0;
+  }
+
+  #tools{
+   & >.tools-wrapper {
+    border: none !important;
+    background: #0D566E;
+    color: white;
+    margin: 16px 0 16px 0 !important;
+    font-size: 20px;
+    padding: 8px 4px;
+    border-radius: 4px;
+    box-shadow: 4px 2px 1em rgba(13, 86, 110, 0.4);
+    font-family: '苹方', 'MS YaHei', 'Noto Sans', sans-serif;
+    flex-flow: column !important;
+  }
+}
+
+  #search-bar {
+    .search-bar {
+      font-size: 20px;
+      border: none !important;
+      --margin: 8px;
+      margin: 0 var(--margin);
+      width: calc(100% - var(--margin) * 2);
+      background: none;
+      color: white;
     }
 
-    #tools {
-        padding: 0;
-    }
-
-    #tools>.tools-wrapper {
-        border: none !important;
-        background: #0D566E;
-        color: white;
-        margin: 16px 0 0 0 !important;
-        font-size: 20px;
-        padding: 8px 4px;
-        border-radius: 4px;
-        box-shadow: 4px 2px 1em rgba(13, 86, 110, 0.4);
-        font-family: '苹方', 'MS YaHei', 'Noto Sans', sans-serif;
-        flex-flow: column !important;
-    }
-
-    #search-bar .search-bar {
-        font-size: 20px;
-        border: none !important;
-        --margin: 8px;
-        margin: 0 var(--margin);
-        width: calc(100% - var(--margin) * 2);
-        background: none;
-        color: white;
-    }
-
-    #search-bar .search-bar::placeholder {
-        color: rgba(255, 255, 255, 0.8);
+    .search-bar::placeholder {
+      color: rgba(255, 255, 255, 0.8);
     }
 
     /* For Microsoft Edge */
-    #search-bar .search-bar::-ms-input-placeholder {
-        color: rgba(255, 255, 255, 0.8);
+    .search-bar::-ms-input-placeholder {
+      color: rgba(255, 255, 255, 0.8);
     }
+  }
 
-    #archives {
-        max-height: 0;
-        overflow: hidden;
-        transition: all 1s;
-        margin-left: 8px;
-    }
+  #archives {
+    max-height: 0;
+    overflow: hidden;
+    transition: all 1s;
+    margin-left: 8px;
+  }
 
-    #archives.md-enabled {
-        /* maybe there will be some bugs. 
+  #archives.md-enabled {
+    /* maybe there will be some bugs. 
             when the container is higher than 2000px;
             but I believe it will not grow to so high.*/
-        max-height: 1000px;
-        overflow-y: scroll
-    }
+    max-height: 1000px;
+    overflow-y: scroll
+  }
 
 
-    /* those code are dirty.
+  /* those code are dirty.
         maybe some classnames are needed.
         or some advanced css-- like less.
     */
-    #archives h2 {
-        font-size: 20px;
-    }
+  #archives h2 {
+    font-size: 20px;
+  }
 
-    #archives li a {
-        color: white !important;
-        font-size: 16px;
-    }
+  #archives li a {
+    color: white !important;
+    font-size: 16px;
+  }
 
-    #the-article-type .hint-container {
-        margin-top: 32px;
-    }
+  #the-article-type .hint-container {
+    margin-top: 32px;
+  }
 }
