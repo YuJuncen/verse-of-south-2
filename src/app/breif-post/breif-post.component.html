@@ -1,7 +1,7 @@
 <article role="post-entry" class="vos-article">
   <h1><a class="article-title" [routerLink]= "['/post/' + post.id]">{{ post.title }}</a></h1>
   <section role="infomation" class="article-info">
-    <p>{{ post.publishTime.toISODate() | uppercase }}</p>
+    <p>{{ getPublishTimeago() }}</p>
     <ul class="tags">
       <li *ngFor="let tag of post.tags">
         {{ tag.name }}

@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { format } from 'timeago.js';
 import { PostDetailComponent } from './post-detail.component';
 
 describe('PostDetailComponent', () => {

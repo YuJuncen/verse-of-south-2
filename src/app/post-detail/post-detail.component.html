@@ -1,6 +1,6 @@
  <header id="article-header">
       <h1 class="article-title" #title>{{ post.title }}</h1>
-      <h2 class="article-info">{{ post.publishTime.toISODate() }}</h2>
+      <h2 class="article-info">{{ getPublishTimeago() }}</h2>
       <section *ngIf="post.intro" class="article-intro" role="intro">
         <p *ngFor="let para of post.intro.split('\n')">
             {{ para }}

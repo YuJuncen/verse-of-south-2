@@ -2,6 +2,8 @@ import { Component, OnInit, ViewEncapsulation, ViewChild, ElementRef, AfterViewI
 import { DetailedPost } from './detailed-post';
 import MOCK_POST from './mock-post';
 import { Title } from '@angular/platform-browser';
+import { format } from 'timeago.js';
+
 @Component({
   selector: 'app-post-detail',
   templateUrl: './post-detail.component.html',
@@ -16,6 +18,10 @@ export class PostDetailComponent implements OnInit, AfterViewInit {
   post: DetailedPost;
 
   constructor(private titleService : Title) { }
+
+  getPublishTimeago() {
+    return format(this.post.publishTime.toJSDate(), 'zh_CN');
+  }
 
   ngOnInit() {
     this.post = MOCK_POST;

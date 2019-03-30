@@ -36,20 +36,12 @@ header.intrduction > em {
     100% {color: #0D566E;}
 }
 
-a:disabled {
-    color: rgba(0, 0, 0, 0.78);
-}
-
-a:visited {
-    color: #08192D;
-}
-
 a:hover {
-    color: #08192D;
+    color: #0D566E;
 }
 
 a {
-    color: #0D566E;
+    color: #08192D;
     text-decoration: none;
     transition: all .5s;
 }
