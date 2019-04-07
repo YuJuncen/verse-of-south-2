@@ -1,45 +1,45 @@
 article.vos-article {
     margin: 0 0 64px 0;
-}
-
-article.vos-article h1 {
     font-size: 32px;
-    margin-bottom: 0;
-    margin-top: .83em;
-    font-family: '宋体', serif;
-}
 
-article.vos-article .article-info {
-    color: rgba(0, 0, 0, 0.78);
-    font-size: 16px;
-    font-family: '苹方', 'MS YaHei', 'Noto Sans', sans-serif;
-    display: flex;
-    align-items: center;
-
-    p {
-        margin: 8px initial;
+    h1 {
+        margin-bottom: 0;
+        margin-top: .83em;
+        font-family: '宋体', serif;
     }
 
-    ul {
-        padding-left: .8em;
-        li {
-            display: inline-block;
-            color: #77969A;
-            margin-right: .8em;
-            font-family: '苹方', 'MS YaHei', 'Noto Sans', sans-serif;
+    .article-info {
+        color: rgba(0, 0, 0, 0.78);
+        font-size: .5em;
+        font-family: '苹方', 'MS YaHei', 'Noto Sans', sans-serif;
+        display: flex;
+        align-items: center;
+
+        p {
+            margin: 8px initial;
         }
 
+        ul {
+            padding-left: .8em;
+            
+            li {
+                display: inline-block;
+                color: #77969A;
+                margin-right: .8em;
+                font-family: '苹方', 'MS YaHei', 'Noto Sans', sans-serif;
+            }
+
+        }
+    }
+
+    &  > .article-intro > p {
+        font-size: .625em;
+        text-indent: 40px;
+        font-family: '宋体', serif;
+        margin-top: 0;
+        margin-bottom: 0; 
     }
 }
-
-article.vos-article > .article-intro > p {
-    font-size: 20px;
-    text-indent: 40px;
-    font-family: '宋体', serif;
-    margin-top: 0;
-    margin-bottom: 0; 
-}
-
 a:disabled {
     color: rgba(0, 0, 0, 0.78);
 }

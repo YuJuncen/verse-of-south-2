@@ -1,16 +1,16 @@
-<article role="post-entry" class="vos-article">
+<article class="vos-article">
   <h1><a class="article-title" [routerLink]= "['/post/' + post.id]">{{ post.title }}</a></h1>
-  <section role="infomation" class="article-info">
+  <div class="article-info">
     <p>{{ getPublishTimeago() }}</p>
     <ul class="tags">
       <li *ngFor="let tag of post.tags">
         {{ tag.name }}
       </li>
     </ul>
-  </section>
-  <section role="intro" *ngIf="post.intro" class="article-intro">
+  </div>
+  <div *ngIf="post.intro" class="article-intro">
     <p *ngFor="let para of post.intro.split('\n')">
       {{ para }}
     </p>
-  </section>
+  </div>
 </article>

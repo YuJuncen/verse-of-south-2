@@ -1,0 +1,6 @@
+<section role="feed" id="articles">
+    <div @In *ngFor="let post of posts" >
+        <app-breif-post [post]="post"></app-breif-post>
+    </div>
+    <div #Bottom></div>
+</section>

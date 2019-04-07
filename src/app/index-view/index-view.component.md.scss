@@ -83,35 +83,6 @@
     }
   }
 
-  #archives {
-    max-height: 0;
-    overflow: hidden;
-    transition: all 1s;
-    margin-left: 8px;
-  }
-
-  #archives.md-enabled {
-    /* maybe there will be some bugs. 
-            when the container is higher than 2000px;
-            but I believe it will not grow to so high.*/
-    max-height: 1000px;
-    overflow-y: scroll
-  }
-
-
-  /* those code are dirty.
-        maybe some classnames are needed.
-        or some advanced css-- like less.
-    */
-  #archives h2 {
-    font-size: 20px;
-  }
-
-  #archives li a {
-    color: white !important;
-    font-size: 16px;
-  }
-
   #the-article-type .hint-container {
     margin-top: 32px;
   }

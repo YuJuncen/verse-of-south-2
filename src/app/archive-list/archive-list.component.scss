@@ -1,0 +1,60 @@
+#archives .archive-list {
+    list-style: none;
+}
+
+#archives .archive-list > li {
+    font-family: sans-serif;
+} 
+
+#archives .post-count {
+    font-family: monospace;
+    display: inline-block;
+    color: white;
+    background: #0D566E;
+    padding: .05em .25ch;
+    margin-left: .5ch;
+    font-size: .9em;
+    border-radius: .1em;
+}
+
+a:hover {
+    color: #0D566E;
+}
+
+a {
+    color: #08192D;
+    text-decoration: none;
+    transition: all .5s;
+}
+
+@media(max-width: 720px) {
+#archives {
+    max-height: 0;
+    overflow: hidden;
+    transition: all 1s;
+    margin-left: 8px;
+  
+
+  &.md-enabled {
+    /* maybe there will be some bugs. 
+            when the container is higher than 2000px;
+            but I believe it will not grow to so high.*/
+    max-height: 1000px;
+    overflow-y: scroll
+  }
+
+
+  /* those code are dirty.
+        maybe some classnames are needed.
+        or some advanced css-- like less.
+    */
+   h2 {
+    font-size: 20px;
+  }
+
+   li a {
+    color: white !important;
+    font-size: 16px;
+  }
+}
+}

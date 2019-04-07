@@ -1,10 +1,6 @@
-<section role="hint-of-article-list" id="the-article-type">
+<section role="complementary" id="the-article-type">
     <div class="hint-container">
         {{ hint$ | async }}
     </div>
 </section>
-<section id="articles">
-    <div @In *ngFor="let post of posts$ | async" >
-        <app-breif-post [post]="post"></app-breif-post>
-    </div>
-</section>
+<app-post-list [next]="next" [initialPosts]="posts$"></app-post-list>

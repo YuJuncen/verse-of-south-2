@@ -14,13 +14,13 @@ $prime-color: #0D566E;
 
 
 #post-content {
+    font-size: 20px;
     p, li{
-        font-size: 20px;
         font-family: '宋体', serif;
     }
 
     h1 {
-        font-size: 30px;
+        font-size: 1.5em;
         font-family: '宋体', serif;
     }
 
@@ -37,6 +37,6 @@ $prime-color: #0D566E;
     }
 
     code.hljs {
-        font-size: 16px;
+        font-size: .8em;
     }
 }

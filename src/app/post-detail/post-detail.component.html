@@ -17,16 +17,16 @@
                           {{ title.title | uppercase}}
                       </li>
                   </ul>
-                  <section role="tools" id="tools">
+                  <section role="list" id="tools">
                       <div id="tool-list">
                           <!-- 这里是 label 和 button 是 css 中的遗留问题，我不想改了。 -->
-                          <a routerLink="/" class="tool">
+                          <a routerLink="/" class="tool" role="listitem">
                               <label for="back">&lt;=&lt;</label><button id="back">返回</button>
                           </a>
-                          <a (click)="goToComment()" class="tool">
+                          <a (click)="goToComment()" class="tool" role="listitem">
                               <label for="cmt">&lt;*&gt;</label><button id="cmt">评论</button>
                           </a>
-                          <a (click)="goToTop()" class="tool">
+                          <a (click)="goToTop()" class="tool" role="listitem">
                               <label for="gotop">^^^</label><button id="gotop">回顶上</button>
                           </a>
                       </div>

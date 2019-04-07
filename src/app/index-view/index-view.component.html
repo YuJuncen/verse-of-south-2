@@ -6,28 +6,26 @@
   </header>
 
   <div class="main-conent-wrapper">
-    <nav role="tools" id="tools">
+    <nav role="list" id="tools">
       <div class="tools-wrapper">
-        <section role="search-bar" id="search-bar">
+        <section role="search listitem" id="search-bar">
           <input #SearchBar [value]="this.params$ | async" (keyup.enter)="doSearch(SearchBar.value)" (input)="search(SearchBar.value)" class="search-bar"
             type="text" autocomplete="off" placeholder="搜索">
         </section>
         <div id="tool-list">
-          <a class="tool" (click)="more()">
+          <a role="listitem" class="tool" (click)="more()">
             <label for="back">&lt;?&gt;</label><button id="back">关于</button>
           </a>
         </div>
-        <section role="archive" id="archives">
-          <h2>归档</h2>
-          <ol class="archive-list">
-            <li><a href="#"> 2018 年 </a></li>
-            <li><a href="#archives"> 2017 年 </a></li>
-          </ol>
-        </section>
+        <app-archive-list [archives]="[
+        {year: 2012, month: 8, count: 3},
+        {year: 9102, month: 5, count: 7},
+        {year: 9263, month: 12, count: 18}
+    ]"></app-archive-list>
       </div>
     </nav>
-    <section role="the-article-list" id="the-article-list">
+    <div id="the-article-list">
       <router-outlet></router-outlet>
-    </section>
+    </div>
   </div>
 </div>

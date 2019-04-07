@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import MOCK_POSTS from './index-view/mock-posts';
-import { Observable, of, from, Subject } from 'rxjs';
-import { take, map, delay, filter, flatMap, toArray} from 'rxjs/operators';
+import { Observable, of, from } from 'rxjs';
+import { take, map, delay} from 'rxjs/operators';
 import { Post } from './index-view/post';
 
 @Injectable({

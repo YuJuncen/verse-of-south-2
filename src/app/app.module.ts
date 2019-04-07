@@ -7,7 +7,6 @@ import { PostDetailComponent } from './post-detail/post-detail.component';
 import { CommentEditorComponent } from './comment-editor/comment-editor.component';
 import { CommentSectionComponent } from './comment-section/comment-section.component';
 import { CommentComponent } from './comment/comment.component';
-import { PostComponent } from './post/post.component';
 import { PostContentComponent } from './post-content/post-content.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { IndexViewComponent } from './index-view/index-view.component';
@@ -16,6 +15,9 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { IndexPostListComponent } from './index-post-list/index-post-list.component';
 import { SearchPostListComponent } from './search-post-list/search-post-list.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ArchiveListComponent } from './archive-list/archive-list.component';
+import { ArchivedPostListComponent } from './archived-post-list/archived-post-list.component';
+import { PostListComponent } from './post-list/post-list.component';
 
 
 @NgModule({
@@ -25,13 +27,15 @@ import { ReactiveFormsModule } from '@angular/forms';
     CommentEditorComponent,
     CommentSectionComponent,
     CommentComponent,
-    PostComponent,
     PostContentComponent,
     IndexViewComponent,
     BreifPostComponent,
     NotFoundComponent,
     IndexPostListComponent,
     SearchPostListComponent,
+    ArchiveListComponent,
+    ArchivedPostListComponent,
+    PostListComponent,
   ],
   imports: [
     // ReactiveFormsModule,
