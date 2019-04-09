@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import MockComments from './mock-comments';
+import { Component, OnInit, Input } from '@angular/core';
 import {Comment} from './comment';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-comment-section',
@@ -9,12 +9,11 @@ import {Comment} from './comment';
 })
 export class CommentSectionComponent implements OnInit {
 
-  comments: Comment[];
+  @Input('comments') comments$: Observable<Comment[]>;
   constructor() { 
   }
 
   ngOnInit() {
-    this.comments = MockComments;
   }
 
 }

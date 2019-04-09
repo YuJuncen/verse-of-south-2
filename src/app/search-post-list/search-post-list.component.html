@@ -1,6 +1,17 @@
 <section role="complementary" id="the-article-type">
-    <div class="hint-container">
-        {{ hint$ | async }}
+  <em>搜索这些：</em>
+  <div>
+    <div class="search-term" *ngFor="let tag of tags$ | async">
+      <div class="term-avatar">标</div>
+      <div class="term">{{ tag }}</div>
     </div>
+    <div class="search-term" *ngFor="let term of terms$ | async">
+      <div class="term-avatar">名</div>
+      <div class="term">{{ term }}</div>
+    </div>
+    <div class="search-term">
+      <div class="term-avatar back" [routerLink]="['/']">✕</div>
+    </div>
+  </div>
 </section>
-<app-post-list [next]="next" [initialPosts]="posts$"></app-post-list>
+<app-post-list [initialPosts]="posts$"></app-post-list>

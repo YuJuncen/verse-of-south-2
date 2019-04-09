@@ -1,9 +1,7 @@
-<div>
-  <p>archived-post-list works!</p>
-  <dl>
-    <dt>month</dt>
-    <dd>{{ month$ | async }}</dd>
-    <dt>year</dt>
-    <dd>{{ year$ | async }}</dd>
-  </dl>
-</div>
+  <aside id="hint">
+    <div class="hint-container">
+        <span class="date">{{ year$ | async }}</span> 年 <span class="date">{{ month$ | async }}</span> 月的归档
+    </div>
+    <div class="back" [routerLink]="['/']">✕</div>
+  </aside>
+  <app-post-list [initialPosts]="posts$"></app-post-list>

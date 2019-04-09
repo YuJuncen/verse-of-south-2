@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-comment-editor',
@@ -6,7 +7,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./comment-editor.component.scss']
 })
 export class CommentEditorComponent implements OnInit {
-
+  commentForm: FormGroup = new FormGroup({
+    author: new FormControl(''),
+    content: new FormControl(''),
+  })
   constructor() { }
 
   ngOnInit() {

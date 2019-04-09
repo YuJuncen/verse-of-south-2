@@ -9,19 +9,15 @@
     <nav role="list" id="tools">
       <div class="tools-wrapper">
         <section role="search listitem" id="search-bar">
-          <input #SearchBar [value]="this.params$ | async" (keyup.enter)="doSearch(SearchBar.value)" (input)="search(SearchBar.value)" class="search-bar"
+          <input #SearchBar [value]="this.params$ | async" (keyup.enter)="doSearch(SearchBar.value)" [formControl]="searchTerm" class="search-bar"
             type="text" autocomplete="off" placeholder="搜索">
         </section>
         <div id="tool-list">
-          <a role="listitem" class="tool" (click)="more()">
+          <a role="listitem" class="tool">
             <label for="back">&lt;?&gt;</label><button id="back">关于</button>
           </a>
         </div>
-        <app-archive-list [archives]="[
-        {year: 2012, month: 8, count: 3},
-        {year: 9102, month: 5, count: 7},
-        {year: 9263, month: 12, count: 18}
-    ]"></app-archive-list>
+        <app-archive-list [archives]="archives$ | async"></app-archive-list>
       </div>
     </nav>
     <div id="the-article-list">

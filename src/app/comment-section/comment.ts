@@ -5,5 +5,5 @@ export interface Comment {
     poster: String;
     content: String;
     publishTime: DateTime;
-    referenceTo? : number;
+    replyTo? : number;
 }

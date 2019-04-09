@@ -1,4 +1,4 @@
-import { Comment } from './comment';
+import { Comment } from '../comment-section/comment';
 import { DateTime } from 'luxon';
 const mockComments: Comment[] = [{
     id: 0,
@@ -10,7 +10,7 @@ const mockComments: Comment[] = [{
     poster: "SmallLight",
     content: "接下来，我们就要出发了！",
     publishTime: DateTime.local(),
-    referenceTo: 0
+    replyTo: 0
 }];
 
-export default mockComments;
+export default mockComments as Comment[];

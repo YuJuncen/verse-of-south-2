@@ -54,10 +54,26 @@ $prime-color: #0D566E;
     height: 8px;
     margin: 0 8px;
     display: inline-block;
-    background-color: #268785;
+    background-color: #77969A;
     animation-name: jumping;
     animation-duration: 1s;
     animation-iteration-count: infinite;
     animation-timing-function: cubic-bezier(0.455, 0.03, 0.515, 0.955);
+  }
+}
+
+#load-more {
+  div {
+    background: #77969A;
+    color: white;
+    text-transform: uppercase;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1em;
+    text-align: center;
+    padding: .5em 0;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 }

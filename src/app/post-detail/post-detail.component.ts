@@ -3,6 +3,9 @@ import { DetailedPost } from './detailed-post';
 import MOCK_POST from './mock-post';
 import { Title } from '@angular/platform-browser';
 import { format } from 'timeago.js';
+import { Observable, of, from } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
+import {Comment} from '../comment-section/comment';
 
 @Component({
   selector: 'app-post-detail',
@@ -15,17 +18,18 @@ export class PostDetailComponent implements OnInit, AfterViewInit {
   @ViewChild("comments", {read: ElementRef}) comments : ElementRef;
   @ViewChild("title", {read: ElementRef}) title: ElementRef;
   titles: {title: string, ele: any}[] = [];
-  post: DetailedPost;
+  comments$: Observable<Comment[]>;
+  post$: Observable<DetailedPost>;
 
   constructor(private titleService : Title) { }
 
   getPublishTimeago() {
-    return format(this.post.publishTime.toJSDate(), 'zh_CN');
+    return this.post$.pipe(map(p => format(p.publishTime.toJSDate(), 'zh_CN')));
   }
 
   ngOnInit() {
-    this.post = MOCK_POST;
-    this.titleService.setTitle(this.post.title);
+    this.post$ = of(MOCK_POST as DetailedPost);
+    this.comments$ = this.post$.pipe(tap(p => this.titleService.setTitle(p.title)), map(p => p.comments));
   }
 
   goToComment() {
@@ -37,8 +41,6 @@ export class PostDetailComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
-    //Add 'implements AfterViewInit' to the class.
     this.titles = [];
     this.cont.nativeElement.querySelectorAll("h1").forEach(e => {
       setTimeout(() => {

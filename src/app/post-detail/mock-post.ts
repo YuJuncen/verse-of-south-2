@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon';
-import { FormatType } from './detailed-post';
-
+import { FormatType, DetailedPost } from './detailed-post';
+import MOCK_COMMENTS from './mock-comments';
+import { Post } from '../index-view/post';
 export default {
     id: 0,
     title: "昼雪",
@@ -81,4 +82,6 @@ struct Mut<A, B>(A, B)
 
 - 好！接下来呢？  
 *我们很可能还可以试着证明这是一个环，但是暂时没有这个必要。因为还有更重要的事吧。*
-- 是的，接下来我们讨论函数。函数类型怎么表示呢？`};
+- 是的，接下来我们讨论函数。函数类型怎么表示呢？`,
+    comments: MOCK_COMMENTS,
+} as DetailedPost;

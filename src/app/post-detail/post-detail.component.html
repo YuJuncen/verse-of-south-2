@@ -1,11 +1,11 @@
  <header id="article-header">
-      <h1 class="article-title" #title>{{ post.title }}</h1>
-      <h2 class="article-info">{{ getPublishTimeago() }}</h2>
-      <section *ngIf="post.intro" class="article-intro" role="intro">
-        <p *ngFor="let para of post.intro.split('\n')">
+      <h1 class="article-title" #title>{{ (post$ | async).title }}</h1>
+      <h2 class="article-info">{{ getPublishTimeago() | async }}</h2>
+      <div *ngIf="(post$ | async).intro" class="article-intro">
+        <p *ngFor="let para of (post$ | async).intro.split('\n')">
             {{ para }}
         </p>
-      </section>
+      </div>
   </header>
   <main>
       <div class="main-content-wrapper">
@@ -35,10 +35,10 @@
           </nav>
           <div id="article-container">
               <app-post-content 
-                [postText]="post.content"
-                [postFormatType]="post.contentFormatType"
+                [postText]="(post$ | async).content"
+                [postFormatType]="(post$ | async).contentFormatType"
                 #content></app-post-content>
-              <app-comment-section #comments>
+              <app-comment-section #comments [comments]="comments$">
               </app-comment-section>
           </div>
       </div>

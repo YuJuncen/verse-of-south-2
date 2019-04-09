@@ -6,6 +6,7 @@ import { map, filter, switchMap, share, tap, skip, flatMap } from 'rxjs/operator
 import { Observable, concat, of, Subject, from } from 'rxjs';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { routerNgProbeToken } from '@angular/router/src/router_module';
+import { SearchParserService } from '../search-parser.service';
 
 @Component({
   selector: 'app-search-post-list',
@@ -18,23 +19,32 @@ import { routerNgProbeToken } from '@angular/router/src/router_module';
 })
 export class SearchPostListComponent implements OnInit {
   static LIMIT = 5;
-  hint$: Observable<string>;
+  tags$: Observable<string[]>;
+  tagsLen$: Observable<number>;
+  terms$: Observable<String[]>;
+  termsLen$: Observable<number>;
   posts$: Observable<Post[]>;
   params$: Observable<Params>;
   constructor(private postService: PostService,
-              private route: ActivatedRoute) { }
-
-  next(_sink: Subject<Post>) {
-    
+             private route: ActivatedRoute,) { }
+  
+  mapToLen<T>(o: Observable<Array<T>>) {
+    return o.pipe(map(a => a.length));
   }
+  splitIfNeeded = (splitBy: string | RegExp) => (i: any) => {
+    if (typeof(i) === 'string') {
+      return (i as string).split(splitBy);
+    }
+    return i;
+  }
+  splitByCommaIfNeeded = this.splitIfNeeded(",");
 
   ngOnInit() {
     this.params$ = this.route.queryParams;
-    this.hint$ = this.params$.pipe(
-      map(url => `“${url['term']}” 的搜索结果：`)
-    );
+    this.tags$ = this.params$.pipe(map(url => url['tag']), map(this.splitByCommaIfNeeded));
+    this.terms$ = this.params$.pipe(map(url => url['plain']), map(this.splitByCommaIfNeeded));
     this.posts$ = this.params$.pipe(
-      switchMap(url => this.postService.searchBreifPosts(url['term'])(0, SearchPostListComponent.LIMIT)),
+      switchMap(url => this.postService.searchBreifPosts({tags: url['tag'], terms: url['plain']})(0, SearchPostListComponent.LIMIT)),
     );
   }
 }

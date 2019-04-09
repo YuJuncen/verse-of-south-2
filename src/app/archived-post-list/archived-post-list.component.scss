@@ -1,0 +1,37 @@
+$prime-color: #0D566E;
+
+#hint {
+    display: flex;
+    background-color: rgba(238, 238, 238, .8);
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    justify-content: space-between;
+    align-items: center;
+    color: #00000099;
+    margin-bottom: 20px;
+
+    .back {
+        flex-shrink: 1;
+        padding: .8em;
+        &:hover {
+            color: $prime-color;
+            cursor: pointer;
+        }
+    }
+
+    .hint-container {
+        flex-shrink: 5;
+        transition: .5s all ease-in-out;
+        font-size: 20px;
+
+        font-weight: bolder;
+        padding: 16px; 
+        font-family: '苹方', 'MS YaHei', 'Noto Sans', sans-serif;
+
+        .date {
+            font-family: 'Courier New', Courier, monospace;
+        }
+    }
+}
+

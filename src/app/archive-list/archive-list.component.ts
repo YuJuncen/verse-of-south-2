@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-interface ArchiveInfo {
+export interface ArchiveInfo {
   year: number,
   month: number,
   count: number,

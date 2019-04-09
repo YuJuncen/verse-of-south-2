@@ -1,16 +1,52 @@
+$prime-color: #0D566E;
+$sans-serif: '苹方',
+'微软雅黑',
+'MS YaHei',
+'Noto Sans',
+sans-serif;
+$monospace: 'Menlo',
+'Ubuntu Mono',
+'Consolas',
+'Source Code Pro',
+monospace;
 #the-article-type {
     position: -webkit-sticky;
     position: sticky;
-    top: 8px;
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    top: 0;
+    background: #ffffffcc;
+
+    em {
+        font-size: 1.5em;
+        color: #00000099;
+    }
+
+    .search-term {
+        display: inline-flex;
+        margin: .5em 1ch;
+    
+        .term-avatar {
+            flex: auto 1;
+            padding: .2em .5ch;
+            background: #00000099;
+            color: white;
+            font-family: $sans-serif;
+        }
+    
+        .term {
+            flex: auto 3;
+            color: #00000099;
+            padding: .2em .5ch;
+            font-family: $sans-serif;
+            background: rgba(238, 238, 238, .8);
+        }
+
+        .back {
+            background: $prime-color !important;
+            &:hover { cursor: pointer; }
+        }
+    }
 }
 
-#the-article-type .hint-container {
-    transition: .5s all ease-in-out;
-    font-size: 32px;
-    margin-bottom: 32px;
-    background: rgba(238, 238, 238, .8);
-    color: #00000099;
-    font-weight: bolder;
-    padding: 16px; 
-    font-family: '苹方', 'MS YaHei', 'Noto Sans', sans-serif;
-}
