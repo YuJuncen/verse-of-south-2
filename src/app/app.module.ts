@@ -18,6 +18,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ArchiveListComponent } from './archive-list/archive-list.component';
 import { ArchivedPostListComponent } from './archived-post-list/archived-post-list.component';
 import { PostListComponent } from './post-list/post-list.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -38,9 +39,10 @@ import { PostListComponent } from './post-list/post-list.component';
     PostListComponent,
   ],
   imports: [
-    // ReactiveFormsModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
-    BrowserModule,
+    BrowserModule.withServerTransition({appId: 'verse-of-south'}),
+    HttpClientModule,
     AppRoutingModule,
   ],
   providers: [],
