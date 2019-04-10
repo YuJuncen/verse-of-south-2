@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { debounceTime, map, tap } from 'rxjs/operators';
+import { debounceTime, map, tap, filter } from 'rxjs/operators';
 import { Title } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Router, ActivatedRoute, Params, NavigationStart, NavigationEnd } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { SearchParserService } from '../search-parser.service';
 import { ArchiveInfo } from '../archive-list/archive-list.component';
@@ -26,13 +26,34 @@ export class IndexViewComponent implements OnInit {
               private postService: PostService)
                { }
 
-  doSearch(term: string) {
-    if (term.length) { this.router.navigate(['search'], {queryParams: this.parser.parse(term.trim())}) }
-    else { this.router.navigate(['/'])}
+  splitIfNeeded = (splitBy: string | RegExp) => (i: any) => {
+      if (typeof(i) === 'string') {
+        return (i as string).split(splitBy);
+      }
+      return i;
+  }
+
+  joinUrlterms(url: Params) {
+    let tags = url['tag'] || [];
+    let terms = url['plain'] || [];
+    let splited = this.splitIfNeeded(',');
+    return `${splited(tags).map(t => `#{${t}}`).join(' ')} ${splited(terms).join(' ')}`.trim()
+  }
+
+  doSearch(term: string, skipLocationChange = false) {
+    if (term.length) { this.router.navigate(['search'], {queryParams: this.parser.parse(term.trim()), skipLocationChange}) }
+    else { 
+        this.router.navigate(['/']);
+    }
   }
 
   ngOnInit() {
-    this.params$ = this.arouter.queryParams.pipe(map(url => url['term'] || ""));
+    this.params$ = this.arouter.queryParams;
+    this.router.events.pipe(filter(e => e instanceof NavigationEnd)).subscribe(_ => this.searchTerm.markAsPristine())
+    this.params$.pipe(map(url => this.joinUrlterms(url))).subscribe(s => {
+      if (this.searchTerm.pristine)
+        this.searchTerm.setValue(s, {emitEvent: false})
+    })
     this.archives$ = this.postService.getArchiveInfo();
     this.titleService.setTitle("南方之诗");
     this.searchTerm.valueChanges.pipe(

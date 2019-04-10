@@ -21,10 +21,10 @@ export class SearchParserService {
   private title = parse.bind(parse.bind(parse.many(parse.anyToken), this.toArray), s => parse.always(({type: 'plain', term: s})));
   private searchTerm = parse.choice(this.regex, this.tag, this.title);
   parse(s: String) : Object {
+    let r = {tag: [], regex: [], plain: []};
     let tokens = s.split(/\s+/);
     let parseResult = tokens.map(s => parse.run(this.searchTerm, s));
-    let r = {tag: [], regex: [], plain: []};
-    parseResult.forEach(({type, term}) => r[type].push(term));
+    parseResult.filter(s => s.term.length !== 0).forEach(({type, term}) => r[type].push(term));
     return r;
   }
   constructor() { }

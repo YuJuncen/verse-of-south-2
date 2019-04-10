@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, ViewChild, ElementRef, AfterViewInit, AfterViewChecked } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild, ElementRef, AfterViewInit, AfterViewChecked, Inject, PLATFORM_ID } from '@angular/core';
 import { DetailedPost } from './detailed-post';
 import MOCK_POST from './mock-post';
 import { Title } from '@angular/platform-browser';
@@ -6,6 +6,7 @@ import { format } from 'timeago.js';
 import { Observable, of, from } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import {Comment} from '../comment-section/comment';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-post-detail',
@@ -21,7 +22,8 @@ export class PostDetailComponent implements OnInit, AfterViewInit {
   comments$: Observable<Comment[]>;
   post$: Observable<DetailedPost>;
 
-  constructor(private titleService : Title) { }
+  constructor(private titleService : Title,
+      @Inject(PLATFORM_ID) private platformId: Object) { }
 
   getPublishTimeago() {
     return this.post$.pipe(map(p => format(p.publishTime.toJSDate(), 'zh_CN')));
@@ -42,10 +44,12 @@ export class PostDetailComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.titles = [];
-    this.cont.nativeElement.querySelectorAll("h1").forEach(e => {
-      setTimeout(() => {
-        this.titles.push({ele: e, title: e.textContent});
-      }, 0)
-    });
+    if (isPlatformBrowser(this.platformId)) {
+      this.cont.nativeElement.querySelectorAll("h1").forEach(e => {
+        setTimeout(() => {
+          this.titles.push({ele: e, title: e.textContent});
+        }, 0)
+      });
+    }
   }
 }

@@ -1,8 +1,9 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, AfterViewInit, PLATFORM_ID, Inject } from '@angular/core';
 import { Subject, Observable, empty, merge } from 'rxjs';
 import { Post } from '../index-view/post';
 import { skip, debounceTime, mapTo, tap } from 'rxjs/operators';
 import { trigger, transition, style, animate } from '@angular/animations';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-post-list',
@@ -38,7 +39,7 @@ export class PostListComponent implements AfterViewInit {
    */
   @Input("forceNext") forceNext$: Observable<never[]> = empty();
   
-  constructor() {}
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
   ngOnInit() {
     this.initialPosts.subscribe(ps => {
@@ -54,7 +55,7 @@ export class PostListComponent implements AfterViewInit {
 
     merge(nextSingal$, this.forceNext$)
       .subscribe(_e => this.next(this.postsComeIn$));
-
+      if (isPlatformBrowser(this.platformId))
       this.io = new IntersectionObserver((entries, _observer) => {
         entries.forEach(e => {
           if (e.isIntersecting) {
