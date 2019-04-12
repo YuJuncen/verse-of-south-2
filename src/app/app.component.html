@@ -1,5 +1,5 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<mat-progress-bar mode='indeterminate' color='red'></mat-progress-bar>
+<mat-progress-bar mode='indeterminate' *ngIf="routing"></mat-progress-bar>
 <nav *ngIf="isDevMode$ | async">
     <span id="vos"><em>南方之诗 [Developing]</em></span>
     <a [routerLink]="[ '/' ]">首页</a>

@@ -19,7 +19,7 @@ import { ArchiveListComponent } from './archive-list/archive-list.component';
 import { ArchivedPostListComponent } from './archived-post-list/archived-post-list.component';
 import { PostListComponent } from './post-list/post-list.component';
 import { HttpClientModule } from '@angular/common/http';
-import { MatProgressBarModule } from '@angular/material';
+import { MatProgressBarModule, MatProgressSpinnerModule } from '@angular/material';
 
 
 @NgModule({
@@ -45,6 +45,7 @@ import { MatProgressBarModule } from '@angular/material';
     BrowserModule.withServerTransition({appId: 'verse-of-south'}),
     HttpClientModule,
     AppRoutingModule,
+    MatProgressSpinnerModule,
     MatProgressBarModule,
   ],
   providers: [],

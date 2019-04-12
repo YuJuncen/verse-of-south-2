@@ -1,15 +1,4 @@
-$sans-serif: '苹方',
-'微软雅黑',
-'MS YaHei',
-'Noto Sans',
-sans-serif;
-$monospace: 'Menlo',
-'Ubuntu Mono',
-'Consolas',
-'Source Code Pro',
-monospace;
-$secondary-text: rgba(0, 0, 0, 0.7);
-$prime-color: #0D566E;
+@import '../app.defines';
 
 @keyframes jumping {
   0% {}
@@ -54,7 +43,7 @@ $prime-color: #0D566E;
     height: 8px;
     margin: 0 8px;
     display: inline-block;
-    background-color: #77969A;
+    background-color: $secondary-color;
     animation-name: jumping;
     animation-duration: 1s;
     animation-iteration-count: infinite;
@@ -64,7 +53,7 @@ $prime-color: #0D566E;
 
 #load-more {
   div {
-    background: #77969A;
+    background: $secondary-color;
     color: white;
     text-transform: uppercase;
     font-family: 'Courier New', Courier, monospace;

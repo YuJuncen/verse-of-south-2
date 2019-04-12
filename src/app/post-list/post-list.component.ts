@@ -11,7 +11,7 @@ import { isPlatformBrowser } from '@angular/common';
   styleUrls: ['./post-list.component.scss'],
   animations: [trigger("In", [
     transition(":enter", [style({ opacity: 0 }), animate('.25s', style({ opacity: 1 }))]),
-    transition(":leave", animate('.5s', style({ opacity: 0 })))
+    transition(":leave", animate('.1s', style({ opacity: 0 })))
   ])],
 })
 export class PostListComponent implements AfterViewInit {

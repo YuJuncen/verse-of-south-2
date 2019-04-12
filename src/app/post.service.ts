@@ -44,12 +44,13 @@ export class PostService {
   }
 
   getArchives(month: number, year: number) : Observable<Post[]> {
+    // console.log('archiveOf', year, month);
     return this.http.get(this.apiUrl + `/index/archive/${year}/${month}`)
       .pipe(map(p => p['Ok']), map(ps => ps.map(this.from_json)));
   }
 
   searchBreifPosts({terms = [], tags = []}: {terms: string[], tags: string[]}) : (offset: number, limit: number) => Observable<Post[]> {
-    console.log(terms, tags);
+    // console.log(terms, tags);
     if (typeof(terms) === 'string') {terms = (terms as string).split(',')};
     if (typeof(tags) === 'string') {tags = (tags as string).split(',')};
     return (_offset, _limit) => this.http.get(`${this.apiUrl}/index/query`, {params: {

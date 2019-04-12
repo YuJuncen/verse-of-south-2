@@ -3,5 +3,6 @@
         <span class="date">{{ year$ | async }}</span> 年 <span class="date">{{ month$ | async }}</span> 月的归档
     </div>
     <div class="back" [routerLink]="['/']">✕</div>
+    <mat-progress-bar *ngIf="loading$ | async" class="loading-bar" mode='indeterminate'></mat-progress-bar>
   </aside>
-  <app-post-list [initialPosts]="posts$"></app-post-list>
+  <app-post-list [initialPosts]="posts$" [style.opacity]="(loading$ | async) ? 0 : 1"></app-post-list>
