@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, of, merge } from 'rxjs';
-import { map, switchMap, finalize, tap, concat, mapTo, share } from 'rxjs/operators';
+import { map, switchMap, finalize, tap, concat, mapTo, share, refCount, publishReplay } from 'rxjs/operators';
 import { PostService } from '../post.service';
 import { Post } from '../index-view/post';
 
@@ -25,7 +25,8 @@ export class ArchivedPostListComponent implements OnInit {
     this.month$ = this.route.params.pipe(map(p => p['month']));
     this.posts$ = this.route.params.pipe(
       switchMap(p => this.service.getArchives(p.month, p.year)),
-      share(),
+      publishReplay(1),
+      refCount()
     );
     this.loading$ = merge(
       this.posts$.pipe(mapTo(false)),

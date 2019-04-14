@@ -7,6 +7,6 @@ export enum FormatType {
 
 export interface DetailedPost extends Post {
     content: string,
-    contentFormatType: FormatType,
+    formatType: FormatType,
     comments: Comment[],
 };

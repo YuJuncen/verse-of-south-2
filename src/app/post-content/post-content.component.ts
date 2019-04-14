@@ -15,23 +15,22 @@ export class PostContentComponent implements OnInit, AfterViewInit {
   @ViewChild("PostContent", {read: ElementRef}) post: ElementRef;
   @Input() postText: string;
   @Input() postFormatType: FormatType;
+  @Input() onDOMLoaded = () => {};
   constructor() { }
 
-  parsePost() : string {
-    const md = MarkdownIt();
-    const result = md.render(this.postText);
-    return result;
-  }
+  parsedPost  : string ;
 
   ngOnInit() {
+    const md = MarkdownIt();
+    const result = md.render(this.postText);
+    this.parsedPost = result;
   }
 
   ngAfterViewInit(): void {
-    //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
-    //Add 'implements AfterViewInit' to the class.
     this.post.nativeElement.querySelectorAll("pre code").forEach(c => {
       highlightBlock(c);
-    }); 
+    });
+    setTimeout(this.onDOMLoaded, 0); 
   }
 
 }

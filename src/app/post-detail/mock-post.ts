@@ -6,7 +6,7 @@ export default {
     id: 0,
     title: "昼雪",
     publishTime: DateTime.local().minus({days: 3}),
-    contentFormatType: FormatType.Markdown,
+    formatType: FormatType.Markdown,
     tags: [],
     intro: `山不大，用一些地理知识目测得到的高度不过海拔五百米不到。 同四周一样，大陆性气候让这座山诡谲多变。夏天树木郁郁葱葱；早可见树上滴落的露珠，午可观群鸟拍着翅膀冲上云霄，晚可听蝉鸣、赏群星。冬天的阔叶林则变得光秃秃的，仅仅留下针叶树上反射刺眼阳光的树挂和寒枝上罕见的几点梅花：视野忽地就会开阔起来，一眼能望见山头、山脚的大河以及首都那高高的城郭。`,
     content: `# prelude

@@ -1,21 +1,21 @@
 import { Injectable } from '@angular/core';
 import MOCK_POSTS from './index-view/mock-posts';
 import { Observable, of, from } from 'rxjs';
-import { take, map, delay, repeat, tap, flatMap, skip} from 'rxjs/operators';
+import { take, map, delay, repeat, tap, flatMap, skip, catchError} from 'rxjs/operators';
 import { Post } from './index-view/post';
 import { HttpClient } from '@angular/common/http';
 import { DateTime } from 'luxon';
 import {ArchiveInfo} from './archive-list/archive-list.component';
+import { ApiService } from './api.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PostService {
   private cached: Post[] = [];
-  private apiUrl = 'http://localhost:8000/resources';
 
   from_json(post: any) : Post {
-    return {...post, publishTime: DateTime.fromISO(post.publish_time)};
+    return {...post, publishTime: DateTime.fromISO(post.publishTime)};
   }
 
   getBreifPosts(limit: number, offset: number = 0) : Observable<Post[]> {
@@ -24,19 +24,20 @@ export class PostService {
       return of(this.cached).pipe(map(a => a.slice(offset, offset + limit)));
     }
 
-    return this.http.get(this.apiUrl + "/index", {params: {
+    return this.http.get(this.api.indexPosts(), {params: {
       limit: String(limit),
       offset: String(offset),
     }}).pipe(
-      map(a => a['Ok']),
-      map(a => a.map(this.from_json)),
+      tap(console.log),
+      map(a => (a as Post[]).map(this.from_json)),
       tap(ps => this.cached = this.cached.concat(ps)),
     );
   }
 
   getArchiveInfo() : Observable<ArchiveInfo[]> {
-    return this.http.get(this.apiUrl + "/index/archive")
-      .pipe(map(p => p['Ok']))
+    return this.http.get(this.api.getArchives()).pipe(
+        map(e => e as ArchiveInfo[]),
+    )
   }
 
   moreBreifPosts() : Observable<Post> {
@@ -45,22 +46,21 @@ export class PostService {
 
   getArchives(month: number, year: number) : Observable<Post[]> {
     // console.log('archiveOf', year, month);
-    return this.http.get(this.apiUrl + `/index/archive/${year}/${month}`)
-      .pipe(map(p => p['Ok']), map(ps => ps.map(this.from_json)));
+    return this.http.get(this.api.getArchivesOf(year, month))
+      .pipe( map(ps => (ps as Post[]).map(this.from_json)));
   }
 
   searchBreifPosts({terms = [], tags = []}: {terms: string[], tags: string[]}) : (offset: number, limit: number) => Observable<Post[]> {
     // console.log(terms, tags);
     if (typeof(terms) === 'string') {terms = (terms as string).split(',')};
     if (typeof(tags) === 'string') {tags = (tags as string).split(',')};
-    return (_offset, _limit) => this.http.get(`${this.apiUrl}/index/query`, {params: {
+    return (_offset, _limit) => this.http.get(this.api.searchPosts() , {params: {
       title: terms.join(' '),
       tags: tags.join(':')
     }}).pipe(
-      map(ps => ps['Ok']),
-      map(ps => ps.map(this.from_json))
+      map(ps => (ps['result'] as Post[]).map(this.from_json))
     );
   }
 
-  constructor(private http : HttpClient) { }
+  constructor(private http : HttpClient, private api: ApiService) { }
 }
