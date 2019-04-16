@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import MOCK_POSTS from './index-view/mock-posts';
 import { Observable, of, from } from 'rxjs';
 import { take, map, delay, repeat, tap, flatMap, skip, catchError} from 'rxjs/operators';
-import { Post } from './index-view/post';
+import { Post, Tag } from './index-view/post';
 import { HttpClient } from '@angular/common/http';
 import { DateTime } from 'luxon';
 import {ArchiveInfo} from './archive-list/archive-list.component';
@@ -47,7 +47,7 @@ export class PostService {
       .pipe( map(ps => (ps as Post[]).map(this.from_json)));
   }
 
-  searchBreifPosts({terms = [], tags = []}: {terms: string[], tags: string[]}) : (offset: number, limit: number) => Observable<Post[]> {
+  searchBreifPosts({terms = [], tags = []}: {terms: string[], tags: string[]}) : (offset: number, limit: number) => Observable<{result: Post[], unusedTagsName: Set<String>}> {
     // console.log(terms, tags);
     if (typeof(terms) === 'string') {terms = (terms as string).split(',')};
     if (typeof(tags) === 'string') {tags = (tags as string).split(',')};
@@ -55,7 +55,14 @@ export class PostService {
       title: terms.join(' '),
       tags: tags.join(':')
     }}).pipe(
-      map(ps => (ps['result'] as Post[]).map(this.from_json))
+      tap(console.log),
+      map(ps => {
+        let notused = new Set();
+        for (const t of ps['tagsNotUse']) {
+          notused.add(t.name);
+        }
+        return {unusedTagsName: notused, result: (ps['result'] as Post[]).map(this.from_json) }
+      })
     );
   }
 

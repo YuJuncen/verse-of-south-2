@@ -15,10 +15,9 @@ export class AppComponent {
   title = 'vos-fnt-ng';
   routing: boolean = false;
   userRouting : boolean = false;
-  isDevMode$ : Observable<boolean> = of({}).pipe(map(_ => isDevMode()));
+  isDevMode: boolean = isDevMode();
   enableRoute = () => setTimeout(() => this.userRouting = true, 0);
   disableRoute = () => setTimeout(() => this.userRouting = false, 0);
-  errorMessage : string = "Error!";
 
   constructor(private router: Router, private snackBar: MatSnackBar, private ctx: ApplicationContextService) {
     this.router.events.subscribe(event => {
@@ -34,5 +33,6 @@ export class AppComponent {
     this.ctx.putValue('error-snackbar-config', {panelClass: "vos-warn", horizontalPosition: 'right'});
     this.ctx.putValue('start-loading', this.enableRoute);
     this.ctx.putValue('endroll', this.disableRoute);
+    this.ctx.putValue('dev-mode?', this.isDevMode);
   }
 }

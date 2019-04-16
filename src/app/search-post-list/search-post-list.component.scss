@@ -1,14 +1,5 @@
-$prime-color: #0D566E;
-$sans-serif: '苹方',
-'微软雅黑',
-'MS YaHei',
-'Noto Sans',
-sans-serif;
-$monospace: 'Menlo',
-'Ubuntu Mono',
-'Consolas',
-'Source Code Pro',
-monospace;
+@import '../app.defines.scss';
+
 #the-article-type {
     position: -webkit-sticky;
     position: sticky;
@@ -33,8 +24,15 @@ monospace;
             background: #00000099;
             color: white;
             font-family: $sans-serif;
+        }   
+
+        &.invaild-tag {
+
+            .term {
+                text-decoration-line: line-through;
+            }
         }
-    
+
         .term {
             flex: auto 3;
             color: #00000099;

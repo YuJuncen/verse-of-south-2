@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, AfterViewInit, ElementRef, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, AfterViewInit, ElementRef, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import * as MarkdownIt from 'markdown-it';
 import {highlightBlock} from 'highlight.js';
 import MOCK_POST from '../post-detail/mock-post';
@@ -15,7 +15,7 @@ export class PostContentComponent implements OnInit, AfterViewInit {
   @ViewChild("PostContent", {read: ElementRef}) post: ElementRef;
   @Input() postText: string;
   @Input() postFormatType: FormatType;
-  @Input() onDOMLoaded = () => {};
+  @Output() DOMLoaded = new EventEmitter<[]>();
   constructor() { }
 
   parsedPost  : string ;
@@ -30,7 +30,7 @@ export class PostContentComponent implements OnInit, AfterViewInit {
     this.post.nativeElement.querySelectorAll("pre code").forEach(c => {
       highlightBlock(c);
     });
-    setTimeout(this.onDOMLoaded, 0); 
+    this.DOMLoaded.emit([]);
   }
 
 }

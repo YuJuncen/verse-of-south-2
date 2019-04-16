@@ -1,3 +1,5 @@
+@import '../app.defines.scss';
+
 article.vos-article {
     margin: 0 0 64px 0;
     font-size: 32px;
@@ -6,6 +8,20 @@ article.vos-article {
         margin-bottom: 0;
         margin-top: .83em;
         font-family: '宋体', serif;
+
+        a:disabled {
+            color: rgba(0, 0, 0, 0.78);
+        }
+    
+        a:hover {
+            color: $secondary-color;
+        }
+    
+        a {
+            color: $prime-color;
+            text-decoration: none;
+            transition: all .5s;
+        }
     }
 
     .article-info {
@@ -24,9 +40,22 @@ article.vos-article {
             
             li {
                 display: inline-block;
-                color: #77969A;
                 margin-right: .8em;
                 font-family: '苹方', 'MS YaHei', 'Noto Sans', sans-serif;
+
+                a:disabled {
+                    color: rgba(0, 0, 0, 0.78);
+                }
+            
+                a:hover {
+                    color: $prime-color;
+                }
+            
+                a {
+                    color: $secondary-color;
+                    text-decoration: none;
+                    transition: all .5s;
+                }
             }
 
         }
@@ -39,17 +68,4 @@ article.vos-article {
         margin-top: 0;
         margin-bottom: 0; 
     }
-}
-a:disabled {
-    color: rgba(0, 0, 0, 0.78);
-}
-
-a:hover {
-    color: #77969A;
-}
-
-a {
-    color: #0D566E;
-    text-decoration: none;
-    transition: all .5s;
 }

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { PostService } from '../post.service';
-import { Post } from '../index-view/post';
+import { Post, Tag } from '../index-view/post';
 import { Router, NavigationEnd, ActivatedRoute, Params } from '@angular/router';
-import { map, filter, switchMap, share, tap, skip, flatMap, finalize } from 'rxjs/operators';
+import { map, filter, switchMap, share, tap, skip, flatMap, finalize, publishReplay, refCount } from 'rxjs/operators';
 import { Observable, concat, of, Subject, from } from 'rxjs';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { routerNgProbeToken } from '@angular/router/src/router_module';
@@ -21,9 +21,8 @@ import { ApplicationContextService } from '../application-context.service';
 export class SearchPostListComponent implements OnInit {
   static LIMIT = 5;
   tags$: Observable<string[]>;
-  tagsLen$: Observable<number>;
+  tagNotUse$: Observable<Set<String>>;
   terms$: Observable<String[]>;
-  termsLen$: Observable<number>;
   posts$: Observable<Post[]>;
   params$: Observable<Params>;
   constructor(private postService: PostService,
@@ -45,10 +44,16 @@ export class SearchPostListComponent implements OnInit {
     this.params$ = this.route.queryParams;
     this.tags$ = this.params$.pipe(map(url => url['tag']), map(this.splitByCommaIfNeeded));
     this.terms$ = this.params$.pipe(map(url => url['plain']), map(this.splitByCommaIfNeeded));
-    this.posts$ = this.params$.pipe(
+    let result$ = this.params$.pipe(
       tap(() => this.ctx.getValue<() => void>('start-loading')()),
       switchMap(url => this.postService.searchBreifPosts({tags: url['tag'], terms: url['plain']})(0, SearchPostListComponent.LIMIT)
-        .pipe(finalize(this.ctx.getValue('endroll')))),
+        .pipe(
+          finalize(this.ctx.getValue('endroll')))
+        ),
+      publishReplay(1),
+      refCount()
     );
+    this.posts$ = result$.pipe(map(ps => ps.result));
+    this.tagNotUse$ = result$.pipe(map(ps => ps.unusedTagsName));
   }
 }

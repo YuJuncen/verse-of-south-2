@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, AfterContentInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { PostService } from '../post.service';
 import { Post } from '../index-view/post';
-import { Observable, interval, fromEvent, empty, Subject, from } from 'rxjs';
-import { finalize, toArray, mapTo, tap, take, delay, flatMap } from 'rxjs/operators';
+import { Observable, fromEvent, Subject, from } from 'rxjs';
+import { finalize, mapTo, tap, flatMap } from 'rxjs/operators';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { ApplicationContextService } from '../application-context.service';
 
@@ -18,6 +18,7 @@ import { ApplicationContextService } from '../application-context.service';
 export class IndexPostListComponent implements OnInit, AfterViewInit {
   initialPosts$: Observable<Post[]>;
   endro: boolean = false;
+  loading: boolean = false;
   private offset: number = 0;
   private DEFAULT_LIMIT = 3;
   @ViewChild("LoadMore", {read: ElementRef}) private ld : ElementRef;
@@ -30,11 +31,15 @@ export class IndexPostListComponent implements OnInit, AfterViewInit {
     if (this.endro) return;
 
     this.ctx.getValue<() => void>('start-loading')();
+    this.loading = true;
     this.offset += this.DEFAULT_LIMIT;
     let posts$ = this.postService.getBreifPosts(this.DEFAULT_LIMIT, this.offset);
     posts$.pipe(
         tap(ps => {if(ps.length === 0) this.endro = true}),
-        finalize(() => this.ctx.getValue<() => void>('endroll')()),
+        finalize(() => {
+          this.ctx.getValue<() => void>('endroll')();
+          this.loading = false;
+        }),
         flatMap(ps => from(ps))
       )
       .subscribe(p => sink.next(p))

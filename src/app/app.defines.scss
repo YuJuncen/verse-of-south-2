@@ -1,3 +1,5 @@
+@import './app.material.scss';
+
 $sans-serif: '苹方',
 '微软雅黑',
 'MS YaHei',
@@ -8,13 +10,19 @@ $monospace: 'Menlo',
 'Consolas',
 'Source Code Pro',
 monospace;
-$secondary-text: rgba(0, 0, 0, 0.7);
-$prime-color: #0D566E;
-$secondary-color: #77969A;
-$warn: #cb1b45;
+$secondary-text: $dark-accent-text;
+$prime-color: map-get($mat-primary, main);
+$secondary-color: map-get($mat-accent, main);
+$warn: map-get($mat-warn, main);
 $serif: '宋体', serif;
 
 .vos-warn {
     background: $warn !important;
     color: white !important;
+}
+
+.vos-desktop-only {
+    @media (max-width:720px) {
+        display: none;
+    }
 }

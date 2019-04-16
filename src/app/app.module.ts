@@ -19,7 +19,7 @@ import { ArchiveListComponent } from './archive-list/archive-list.component';
 import { ArchivedPostListComponent } from './archived-post-list/archived-post-list.component';
 import { PostListComponent } from './post-list/post-list.component';
 import { HttpClientModule } from '@angular/common/http';
-import { MatProgressBarModule, MatProgressSpinnerModule, MatSnackBarModule } from '@angular/material';
+import { MatProgressBarModule, MatProgressSpinnerModule, MatSnackBarModule, MatTooltipModule } from '@angular/material';
 
 
 @NgModule({
@@ -47,7 +47,8 @@ import { MatProgressBarModule, MatProgressSpinnerModule, MatSnackBarModule } fro
     AppRoutingModule,
     MatProgressSpinnerModule,
     MatProgressBarModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatTooltipModule
   ],
   providers: [],
   bootstrap: [AppComponent]

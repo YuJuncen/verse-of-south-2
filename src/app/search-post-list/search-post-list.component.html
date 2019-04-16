@@ -1,7 +1,10 @@
 <section role="complementary" id="the-article-type">
   <em>搜索这些：</em>
   <div>
-    <div class="search-term" *ngFor="let tag of tags$ | async">
+
+    <div class="search-term" *ngFor="let tag of tags$ | async" 
+      [class.invaild-tag]="(tagNotUse$ | async)?.has(tag)" 
+      [matTooltip]="((tagNotUse$ | async)?.has(tag)) ? '这个标签不存在。' : null">
       <div class="term-avatar">标</div>
       <div class="term">{{ tag }}</div>
     </div>

@@ -14,14 +14,14 @@ nav {
     padding: 8px 64px;
     margin: -8px -8px 0 -8px;
     background: #eee; 
+    font-size: 16px;
     em {
-        font-size: 24px;
+        font-size: (24 / 16)em;
         font-family: $serif;
         font-style: normal;
         color: $prime-color;
     }
     a {
-        font-size: 16px;
         display: inline-block; 
         width: 4em;
         margin-right: 4px;
@@ -34,6 +34,5 @@ nav {
             cursor: pointer;
         }
     }
-
 }
 

@@ -14,8 +14,7 @@ const routes: Routes = [
     {path: "search", component: SearchPostListComponent},
     {path: "archive/:year/:month", component: ArchivedPostListComponent}
   ]},
-  { path: "notfound", component: NotFoundComponent},
-  { path: "**", redirectTo: "notfound"}
+  { path: "**", component: NotFoundComponent},
 ];
 
 @NgModule({
