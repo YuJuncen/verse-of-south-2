@@ -4,6 +4,7 @@ import { Post } from '../index-view/post';
 import { Observable, interval, fromEvent, empty, Subject, from } from 'rxjs';
 import { finalize, toArray, mapTo, tap, take, delay, flatMap } from 'rxjs/operators';
 import { trigger, transition, style, animate } from '@angular/animations';
+import { ApplicationContextService } from '../application-context.service';
 
 @Component({
   selector: 'app-index-post-list',
@@ -16,25 +17,24 @@ import { trigger, transition, style, animate } from '@angular/animations';
 })
 export class IndexPostListComponent implements OnInit, AfterViewInit {
   initialPosts$: Observable<Post[]>;
-  loading: boolean = true;
   endro: boolean = false;
   private offset: number = 0;
   private DEFAULT_LIMIT = 3;
   @ViewChild("LoadMore", {read: ElementRef}) private ld : ElementRef;
   loadMore$ : Subject<{}> = new Subject<{}>();
-  constructor(private postService: PostService) { }
+  constructor(private postService: PostService, private ctx: ApplicationContextService) { }
 
   next = (sink: any) => {
     // Do you hear the people sing?
     // 你听到命令式（人民）在歌唱了吗？
     if (this.endro) return;
 
-    this.loading = true;
+    this.ctx.getValue<() => void>('start-loading')();
     this.offset += this.DEFAULT_LIMIT;
     let posts$ = this.postService.getBreifPosts(this.DEFAULT_LIMIT, this.offset);
     posts$.pipe(
         tap(ps => {if(ps.length === 0) this.endro = true}),
-        finalize(() => this.loading = false),
+        finalize(() => this.ctx.getValue<() => void>('endroll')()),
         flatMap(ps => from(ps))
       )
       .subscribe(p => sink.next(p))
@@ -45,10 +45,10 @@ export class IndexPostListComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.loading = true;
+    this.ctx.getValue<() => void>('start-loading')();
     this.initialPosts$ = 
       this.postService.getBreifPosts(this.DEFAULT_LIMIT).pipe(
-        finalize(() => this.loading = false),
+        finalize(() => this.ctx.getValue<() => void>('endroll')()),
       )
   }
 

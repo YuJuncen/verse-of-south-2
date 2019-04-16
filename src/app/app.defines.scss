@@ -13,3 +13,8 @@ $prime-color: #0D566E;
 $secondary-color: #77969A;
 $warn: #cb1b45;
 $serif: '宋体', serif;
+
+.vos-warn {
+    background: $warn !important;
+    color: white !important;
+}

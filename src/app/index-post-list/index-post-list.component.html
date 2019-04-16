@@ -1,12 +1,5 @@
 
     <app-post-list [next]="next" [initialPosts]="initialPosts$" [forceNext]="loadMore$"></app-post-list>
-    <div @In id="loading-sym">
-        <div *ngIf="loading" class="loading-container">
-            <div class="loading-dot d0"></div>
-            <div class="loading-dot d1"></div>
-            <div class="loading-dot d2"></div>
-        </div>
-    </div>
     <div @In #LoadMore id="load-more">
         <div *ngIf="!loading && !endro">
             more!

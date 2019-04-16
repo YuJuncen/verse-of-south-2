@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Post } from './index-view/post';
 import { HttpClient } from '@angular/common/http';
 import { ApiService } from './api.service';
 import { Observable } from 'rxjs';
 import { DetailedPost, FormatType } from './post-detail/detailed-post';
-import { map, tap, share } from 'rxjs/operators';
+import { map, tap, share, catchError, retry } from 'rxjs/operators';
 import { DateTime } from 'luxon';
+import { BadResponseFormat, SomeOtherException } from './ajax.error';
 
 @Injectable({
   providedIn: 'root'
@@ -30,13 +30,15 @@ export class PostReadService {
         formatType: this.fromString(rawPost['formatType'] as string), 
         publishTime: DateTime.fromISO(rawPost['publishTime'])} as DetailedPost;
     } catch(e) {
-      throw new Error(`failed to load post from received data: ${JSON.stringify(rawPost)}, because: ${e}`);
+      throw new BadResponseFormat(rawPost);
     }
   }
 
   getArticleFromId(id: number) : Observable<DetailedPost> {
     return this.http.get(this.api.getPostById(id))
-      .pipe(map(this.fromJson))
+      .pipe(catchError(e => {
+        throw new SomeOtherException(e)
+      }), map(this.fromJson))
   }
 
   constructor(private http: HttpClient, private api: ApiService) { }

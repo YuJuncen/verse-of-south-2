@@ -17,7 +17,8 @@
             <label for="back">&lt;?&gt;</label><button id="back">关于</button>
           </a>
         </div>
-        <app-archive-list [archives]="archives$ | async"></app-archive-list>
+        <mat-progress-bar *ngIf="!(archives$ | async)" mode='indeterminate'></mat-progress-bar>
+        <app-archive-list *ngIf="archives$ | async" [archives]="archives$ | async"></app-archive-list>
       </div>
     </nav>
     <div id="the-article-list">

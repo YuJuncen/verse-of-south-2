@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { PostService } from '../post.service';
 import { Post } from '../index-view/post';
 import { Router, NavigationEnd, ActivatedRoute, Params } from '@angular/router';
-import { map, filter, switchMap, share, tap, skip, flatMap } from 'rxjs/operators';
+import { map, filter, switchMap, share, tap, skip, flatMap, finalize } from 'rxjs/operators';
 import { Observable, concat, of, Subject, from } from 'rxjs';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { routerNgProbeToken } from '@angular/router/src/router_module';
 import { SearchParserService } from '../search-parser.service';
+import { ApplicationContextService } from '../application-context.service';
 
 @Component({
   selector: 'app-search-post-list',
@@ -26,7 +27,8 @@ export class SearchPostListComponent implements OnInit {
   posts$: Observable<Post[]>;
   params$: Observable<Params>;
   constructor(private postService: PostService,
-             private route: ActivatedRoute,) { }
+             private route: ActivatedRoute,
+             private ctx: ApplicationContextService) { }
   
   mapToLen<T>(o: Observable<Array<T>>) {
     return o.pipe(map(a => a.length));
@@ -44,7 +46,9 @@ export class SearchPostListComponent implements OnInit {
     this.tags$ = this.params$.pipe(map(url => url['tag']), map(this.splitByCommaIfNeeded));
     this.terms$ = this.params$.pipe(map(url => url['plain']), map(this.splitByCommaIfNeeded));
     this.posts$ = this.params$.pipe(
-      switchMap(url => this.postService.searchBreifPosts({tags: url['tag'], terms: url['plain']})(0, SearchPostListComponent.LIMIT)),
+      tap(() => this.ctx.getValue<() => void>('start-loading')()),
+      switchMap(url => this.postService.searchBreifPosts({tags: url['tag'], terms: url['plain']})(0, SearchPostListComponent.LIMIT)
+        .pipe(finalize(this.ctx.getValue('endroll')))),
     );
   }
 }

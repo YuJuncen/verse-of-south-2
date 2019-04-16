@@ -1,4 +1,4 @@
- <header id="article-header">
+ <header id="article-header" *ngIf="(post$ | async) ? 1 : 0">
    <h1 class="article-title" #title>{{ (post$ | async)?.title }}</h1>
    <h2 class="article-info">{{ getPublishTimeago() | async }}</h2>
    <div *ngIf="(post$ | async)?.intro" class="article-intro">
@@ -7,7 +7,7 @@
      </p>
    </div>
  </header>
- <main>
+ <main *ngIf="(post$ | async) ? 1 : 0">
    <div class="main-content-wrapper">
      <nav class="article-nav">
        <div class="article-nav-wrapper">

@@ -55,7 +55,7 @@ export class PostListComponent implements AfterViewInit {
 
     merge(nextSingal$, this.forceNext$)
       .subscribe(_e => this.next(this.postsComeIn$));
-      if (isPlatformBrowser(this.platformId))
+      if (isPlatformBrowser(this.platformId)) { 
       this.io = new IntersectionObserver((entries, _observer) => {
         entries.forEach(e => {
           if (e.isIntersecting) {
@@ -65,6 +65,7 @@ export class PostListComponent implements AfterViewInit {
       });
       try { (this.io as any).USE_MUTATION_OBSERVER = false; } catch (e) { console.log("Don't use safari, you're good boy."); }
       this.io.observe(this.articleList.nativeElement);
+    }
 
     this.postsComeIn$.subscribe(p => this.posts.push(p))
   }

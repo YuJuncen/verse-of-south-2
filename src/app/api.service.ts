@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
-  private base = environment['api_site'] || "http://localhost/resources"
+  private base =  "http://localhost:8000/resources"
 
   getPostById(id: number) {
     return `${this.base}/post/${id}`;

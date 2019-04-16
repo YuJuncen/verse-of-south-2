@@ -1,17 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 /** common CSS Start */
-$sans-serif: '苹方',
-'微软雅黑',
-'MS YaHei',
-'Noto Sans',
-sans-serif;
-$monospace: 'Menlo',
-'Ubuntu Mono',
-'Consolas',
-'Source Code Pro',
-monospace;
-$secondary-text: rgba(0, 0, 0, 0.7);
-$prime-color: #0D566E;
+@import './app/app.defines.scss';
 
 a {
     text-decoration: none;

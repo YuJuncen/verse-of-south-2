@@ -1,17 +1,5 @@
 /** common CSS Start */
-$sans-serif: '苹方',
-'微软雅黑',
-'MS YaHei',
-'Noto Sans',
-sans-serif;
-$monospace: 'Menlo',
-'Ubuntu Mono',
-'Consolas',
-'Source Code Pro',
-monospace;
-$secondary-text: rgba(0, 0, 0, 0.7);
-$prime-color: #0D566E;
-$serif: '宋体', serif;
+@import './app.defines';
 
 .container {
     margin: auto;
@@ -36,9 +24,16 @@ nav {
         font-size: 16px;
         display: inline-block; 
         width: 4em;
+        margin-right: 4px;
+        text-align: center;
         font-family: $sans-serif;
         color: $secondary-text;
         text-decoration: none;
+
+        &:hover {
+            cursor: pointer;
+        }
     }
+
 }
 

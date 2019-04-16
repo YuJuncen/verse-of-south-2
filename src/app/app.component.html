@@ -1,10 +1,13 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<mat-progress-bar mode='indeterminate' *ngIf="routing"></mat-progress-bar>
+<mat-progress-bar style="position: fixed; top:0; left:0;" mode='indeterminate' *ngIf="userRouting || routing"></mat-progress-bar>
 <nav *ngIf="isDevMode$ | async">
     <span id="vos"><em>南方之诗 [Developing]</em></span>
     <a [routerLink]="[ '/' ]">首页</a>
     <a [routerLink]="[ '/post/0' ]">文章</a>
     <a [routerLink]="[ '/404' ]">错误页面</a>
+    <a (click)="openSnackbar(errorMessage)">错误提示</a>
+    <a (click)="enableRoute()">启动路由</a>
+    <a (click)="disableRoute()">停用路由</a>
 </nav>
 <div class="container">
     <router-outlet></router-outlet>

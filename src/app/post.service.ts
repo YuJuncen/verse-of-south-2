@@ -24,20 +24,17 @@ export class PostService {
       return of(this.cached).pipe(map(a => a.slice(offset, offset + limit)));
     }
 
-    return this.http.get(this.api.indexPosts(), {params: {
+    return this.http.get<Post[]>(this.api.indexPosts(), {params: {
       limit: String(limit),
       offset: String(offset),
     }}).pipe(
-      tap(console.log),
-      map(a => (a as Post[]).map(this.from_json)),
+      map(a => a.map(this.from_json)),
       tap(ps => this.cached = this.cached.concat(ps)),
     );
   }
 
   getArchiveInfo() : Observable<ArchiveInfo[]> {
-    return this.http.get(this.api.getArchives()).pipe(
-        map(e => e as ArchiveInfo[]),
-    )
+    return this.http.get<ArchiveInfo[]>(this.api.getArchives()).pipe();
   }
 
   moreBreifPosts() : Observable<Post> {
