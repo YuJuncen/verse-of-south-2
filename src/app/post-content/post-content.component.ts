@@ -30,7 +30,8 @@ export class PostContentComponent implements OnInit, AfterViewInit {
     this.post.nativeElement.querySelectorAll("pre code").forEach(c => {
       highlightBlock(c);
     });
-    this.DOMLoaded.emit([]);
+    console.debug("[POST CONTENT] DOM init!")
+    setTimeout(() => this.DOMLoaded.emit([]), 0);
   }
 
 }

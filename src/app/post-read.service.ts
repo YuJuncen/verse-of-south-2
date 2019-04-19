@@ -28,7 +28,7 @@ export class PostReadService {
     try {
       return {...rawPost, 
         formatType: this.fromString(rawPost['formatType'] as string), 
-        publishTime: DateTime.fromISO(rawPost['publishTime'])} as DetailedPost;
+        publishTime: DateTime.fromISO(rawPost['publishTime'], {zone: 'utc'})} as DetailedPost;
     } catch(e) {
       throw new BadResponseFormat(rawPost);
     }

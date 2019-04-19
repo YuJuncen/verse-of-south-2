@@ -1,5 +1,11 @@
 <article class="comment">
-  <h2 class="comment-publisher">{{ comment.publisherName }}</h2>
-  <h2 class="comment-info">{{ getPublishTimeago() }}</h2>
+  <div class="head-wrapper">
+  <img *ngIf="comment.publisherEmail" [src]="avatarURL" alt="user-avatar" class="avatar" />
+    <div class="info-bus">
+      <h2 class="comment-publisher">{{ comment.publisherName }} <span *ngIf="reply" class="reply-info">→ {{ reply.publisherName }}</span></h2>
+      <h2 class="comment-info">{{ getPublishTimeago() }}</h2>
+    </div>
+  </div>
   <p class="comment-content">{{ comment.content }}</p>
+  <button mat-flat-button class="reply" (click)="requestReply()">回复</button>
 </article>

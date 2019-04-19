@@ -19,7 +19,9 @@ import { ArchiveListComponent } from './archive-list/archive-list.component';
 import { ArchivedPostListComponent } from './archived-post-list/archived-post-list.component';
 import { PostListComponent } from './post-list/post-list.component';
 import { HttpClientModule } from '@angular/common/http';
-import { MatProgressBarModule, MatProgressSpinnerModule, MatSnackBarModule, MatTooltipModule } from '@angular/material';
+import { MatProgressBarModule, MatProgressSpinnerModule, MatSnackBarModule, MatTooltipModule, MatInputModule, MatFormFieldModule, MatButtonModule } from '@angular/material';
+import { NgxCaptchaModule } from 'ngx-captcha';
+import { TextFieldModule } from '@angular/cdk/text-field';
 
 
 @NgModule({
@@ -48,7 +50,12 @@ import { MatProgressBarModule, MatProgressSpinnerModule, MatSnackBarModule, MatT
     MatProgressSpinnerModule,
     MatProgressBarModule,
     MatSnackBarModule,
-    MatTooltipModule
+    MatTooltipModule,
+    NgxCaptchaModule,
+    MatInputModule,
+    MatFormFieldModule,
+    TextFieldModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

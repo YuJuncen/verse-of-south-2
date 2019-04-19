@@ -35,7 +35,7 @@
      </nav>
      <div id="article-container">
        <div *ngIf="post$ | async">
-         <app-post-content [postText]="(post$ | async)?.content" [postFormatType]="(post$ | async)?.contentFormatType" (DOMLoaded)="onDOMLoaded"
+         <app-post-content [postText]="(post$ | async)?.content" [postFormatType]="(post$ | async)?.contentFormatType" (DOMLoaded)="onDOMLoaded()"
            #content>
          </app-post-content>
        </div>

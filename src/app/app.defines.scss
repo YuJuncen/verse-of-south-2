@@ -19,6 +19,9 @@ $serif: '宋体', serif;
 .vos-warn {
     background: $warn !important;
     color: white !important;
+    .mat-button-wrapper {
+        color: white;
+    }
 }
 
 .vos-desktop-only {

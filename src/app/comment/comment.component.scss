@@ -1,22 +1,34 @@
-$sans-serif: '苹方',
-'微软雅黑',
-'MS YaHei',
-'Noto Sans',
-sans-serif;
-$monospace: 'Menlo',
-'Ubuntu Mono',
-'Consolas',
-'Source Code Pro',
-monospace;
-$secondary-text: rgba(0, 0, 0, 0.7);
-$prime-color: #0D566E;
+@import '../app.defines.scss';
 
 .comment {
     font-family: $sans-serif;
-    ;
-    padding: 8px 0 8px 16px;
+    position: relative;
+    padding: 8px 0;
     margin-bottom: 8px;
-    background-color: rgba(13, 86, 110, 0.1);
+    .head-wrapper {
+        display: flex;
+        .avatar {
+            margin-right: 8px;
+        }
+    }
+
+    .reply-info {
+        color: $secondary-text;
+    }
+
+    .reply {
+        position: absolute;
+        right: 16px;
+        top: 16px;
+        opacity: 0;
+        transition: opacity .4s;
+    }
+
+    &:hover {
+        .reply {
+            opacity: 1;
+        }
+    }
 
     .comment-info {
         color: $secondary-text;
@@ -32,6 +44,5 @@ $prime-color: #0D566E;
 
     .comment-content {
         font-family: $sans-serif;
-        ;
     }
 }

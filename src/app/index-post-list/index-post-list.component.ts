@@ -20,10 +20,16 @@ export class IndexPostListComponent implements OnInit, AfterViewInit {
   endro: boolean = false;
   loading: boolean = false;
   private offset: number = 0;
+  private total: number = -1;
   private DEFAULT_LIMIT = 3;
   @ViewChild("LoadMore", {read: ElementRef}) private ld : ElementRef;
   loadMore$ : Subject<{}> = new Subject<{}>();
   constructor(private postService: PostService, private ctx: ApplicationContextService) { }
+
+  get isEnd() : boolean {
+    console.log(this.offset, this.postService.totalPostCount);
+    return this.offset >= this.postService.totalPostCount;
+  }
 
   next = (sink: any) => {
     // Do you hear the people sing?
@@ -32,10 +38,10 @@ export class IndexPostListComponent implements OnInit, AfterViewInit {
 
     this.ctx.getValue<() => void>('start-loading')();
     this.loading = true;
-    this.offset += this.DEFAULT_LIMIT;
     let posts$ = this.postService.getBreifPosts(this.DEFAULT_LIMIT, this.offset);
+    this.offset += this.DEFAULT_LIMIT;
     posts$.pipe(
-        tap(ps => {if(ps.length === 0) this.endro = true}),
+        tap(ps => {if(this.isEnd) this.endro = true}),
         finalize(() => {
           this.ctx.getValue<() => void>('endroll')();
           this.loading = false;
@@ -51,8 +57,10 @@ export class IndexPostListComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.ctx.getValue<() => void>('start-loading')();
+    this.offset += this.DEFAULT_LIMIT;
     this.initialPosts$ = 
       this.postService.getBreifPosts(this.DEFAULT_LIMIT).pipe(
+        tap(ps => {if(this.isEnd) this.endro = true}),
         finalize(() => this.ctx.getValue<() => void>('endroll')()),
       )
   }

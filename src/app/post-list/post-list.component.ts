@@ -50,7 +50,6 @@ export class PostListComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     let nextSingal$ = this.scrollToBottom$.pipe(
-      skip(1),
       debounceTime(500));
 
     merge(nextSingal$, this.forceNext$)

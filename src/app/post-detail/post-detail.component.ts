@@ -38,7 +38,9 @@ export class PostDetailComponent implements OnInit {
   getPublishTimeago() {
     return this.post$.pipe(
       map(p => p.publishTime),
-      map(time => time instanceof DateTime ? time : DateTime.fromISO(time)),
+      map(time => time instanceof DateTime ? time : DateTime.fromISO(time, {
+        zone: 'utc'
+      })),
       map(time => format(time.toJSDate(), 'zh_CN'))
     );
   }
@@ -74,6 +76,7 @@ export class PostDetailComponent implements OnInit {
 
   onDOMLoaded = () => {
     this.titles = [];
+    console.debug("[POST DETAIL] onDOMLoaded called!")
     if (isPlatformBrowser(this.platformId)) {
       this.cont.nativeElement.querySelectorAll("h1").forEach(e => {
         setTimeout(() => {
