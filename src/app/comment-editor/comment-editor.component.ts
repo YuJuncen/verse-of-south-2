@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import config from '../app.config';
-import { ReCaptchaV3Service } from 'ngx-captcha';
 import { Observable, Subject, merge, of } from 'rxjs';
 import { tap, map, shareReplay, catchError, finalize } from 'rxjs/operators';
 import { Comment } from '../comment-section/comment';
@@ -86,7 +85,7 @@ export class CommentEditorComponent implements OnInit {
           this.snake.open(`失败了，具体的记录应该在控制台里面……`, "……", this.ctx.getValue('error-snackbar-config'));
           return of(null);
         }),
-        finalize(this.resetAll)
+        finalize(() => this.resetAll())
       ).subscribe(c => {
         if (c) this.newComment.emit(c);
       })
@@ -105,7 +104,7 @@ export class CommentEditorComponent implements OnInit {
       this.replyTo$.pipe(map(_ => true)), 
       this.discardReply$.pipe(map(_ => false)))
     this.whoToReply$ = this.replyTo$.pipe(map(c => c.publisherName));
-    merge(this.replyTo$.pipe(map(c => c.id)), this.discardReply$.pipe(map(any => -1)))
+    merge(this.replyTo$.pipe(map(c => c.id)), this.discardReply$.pipe(map(() => -1)))
       .subscribe(i => {
         const replyToInput = this.commentForm.get('replyTo');
         if (i < 0) replyToInput.reset();
