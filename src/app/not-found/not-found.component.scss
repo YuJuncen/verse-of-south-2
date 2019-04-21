@@ -1,16 +1,5 @@
 /** common CSS Start */
-$sans-serif: '苹方',
-'微软雅黑',
-'MS YaHei',
-'Noto Sans',
-sans-serif;
-$monospace: 'Menlo',
-'Ubuntu Mono',
-'Consolas',
-'Source Code Pro',
-monospace;
-$secondary-text: rgba(0, 0, 0, 0.7);
-$prime-color: #0D566E;
+@import '../app.defines.scss';
 
 
 .center-container {
@@ -38,7 +27,7 @@ $prime-color: #0D566E;
             font-size: 60px;
         }
     }
-    background: linear-gradient(45deg, $prime-color, #0B346E);
+    background: linear-gradient(45deg, $prime-color, $secondary-color);
     width: 100vmin;
     height: 100vmin;
     border-radius: 50%;

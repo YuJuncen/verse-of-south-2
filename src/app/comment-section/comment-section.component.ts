@@ -11,20 +11,20 @@ import { map, shareReplay } from 'rxjs/operators';
 export class CommentSectionComponent implements OnInit {
 
   @Input('comments') comments$: Observable<Comment[]>;
+  comments: Comment[] = [];
   replyTo$ = new Subject<Comment>();
-  commentTable$ : Observable<Map<number, Comment>>;
+  commentTable = new Map<number, Comment>();
   constructor() { 
   }
 
+  add = (c) => this.comments.push(c);
+
   ngOnInit() {
-    this.commentTable$ = this.comments$.pipe(map(cs => {
-      let m = new Map<number, Comment>();
-      for (const c of cs){
-        m.set(c.id, c);
-      }
-      return m;
-    }),
-    shareReplay(1))
+
+    this.comments$.subscribe(cs => cs.forEach(c => {
+      this.comments.push(c);
+      this.commentTable.set(c.id, c);
+    }));
   }
 
 }

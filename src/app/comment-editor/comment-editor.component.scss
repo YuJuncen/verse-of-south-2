@@ -37,5 +37,9 @@
         width: 100%;
         padding: 8px 0;
         background-color: map-get($mat-primary, lighter);
+        transition: background-color 1s ease-in-out;
+        &.invaild {
+            background-color: map-get($map: $mat-warn, $key: lighter)
+        }
     }
 }

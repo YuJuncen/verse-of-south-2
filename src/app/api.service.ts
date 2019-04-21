@@ -26,5 +26,9 @@ export class ApiService {
     return `${this.base}/index`;
   }
 
+  publishComment() {
+    return `${this.base}/post/comment`;
+  }
+
   constructor() { }
 }

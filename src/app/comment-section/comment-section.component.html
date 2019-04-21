@@ -1,8 +1,8 @@
 <h1 id="the-comment-title">评论</h1>
 <section role="list" id="comments">
-  <app-comment *ngFor="let comment of (comments$ | async)" [comment]="comment"
-    [reply]="comment.replyTo ? (commentTable$ | async).get(comment.replyTo) : null"
+  <app-comment *ngFor="let comment of comments" [comment]="comment"
+    [reply]="comment.replyTo ? commentTable.get(comment.replyTo) : null"
     (replyRequest)="replyTo$.next($event)">
   </app-comment>
 </section>
-<app-comment-editor [replyTo]="replyTo$"></app-comment-editor>
+<app-comment-editor [replyTo]="replyTo$" (newComment)="add($event)"></app-comment-editor>

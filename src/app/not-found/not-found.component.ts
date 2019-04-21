@@ -11,11 +11,10 @@ import { connect } from 'net';
   templateUrl: './not-found.component.html',
   styleUrls: ['./not-found.component.scss']
 })
-export class NotFoundComponent implements OnInit, OnDestroy {
+export class NotFoundComponent implements OnInit {
 
   @ViewChild("TheCircle", {read: ElementRef}) c: ElementRef;
   deg: number = 0;
-  interval: any;
   constructor(private titleService: Title,
         @Optional()
         @Inject(RESPONSE)
@@ -27,18 +26,7 @@ export class NotFoundComponent implements OnInit, OnDestroy {
     if (isPlatformServer(this.platformId)) {
       this.response.status(404);
     }
-    if (isPlatformBrowser(this.platformId)) {
-      this.interval = setInterval(() => {
-        this.c.nativeElement.style.background = `linear-gradient(${this.deg}deg, #0D566E, #0B346E)`;
-        this.deg += 1;
-      }, 200);
-    }
     this.titleService.setTitle("“无穷之地”");
   }
 
-  ngOnDestroy() {
-    if (this.interval) {
-      clearInterval(this.interval);
-    }
-  }
 }

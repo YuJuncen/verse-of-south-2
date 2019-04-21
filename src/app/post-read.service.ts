@@ -6,6 +6,7 @@ import { DetailedPost, FormatType } from './post-detail/detailed-post';
 import { map, tap, share, catchError, retry } from 'rxjs/operators';
 import { DateTime } from 'luxon';
 import { BadResponseFormat, SomeOtherException } from './ajax.error';
+import { Comment } from './comment-section/comment';
 
 @Injectable({
   providedIn: 'root'
@@ -39,6 +40,31 @@ export class PostReadService {
       .pipe(catchError(e => {
         throw new SomeOtherException(e)
       }), map(this.fromJson))
+  }
+
+  postCommment(publisher: string, content: string, to: number, extra: {
+    email?: string,
+    replyTo?: number,
+    recaptcha?: string
+  }) : Observable<Comment> {
+    return this.http.post<Comment>(this.api.publishComment(), 
+      JSON.stringify({
+        publisher_email: extra.email || null,
+        reply_to: extra.replyTo || null,
+        publisher_name: publisher,
+        comment: content,
+        to
+      }), {
+        headers: {
+          "Content-Type": "Application/json"
+        },
+        params: {
+          recaptcha: extra.recaptcha
+        }
+      }
+    ).pipe(catchError(
+      e => {throw new SomeOtherException(e)}
+    ));
   }
 
   constructor(private http: HttpClient, private api: ApiService) { }

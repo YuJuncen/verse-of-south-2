@@ -8,7 +8,7 @@ import { map, tap, flatMap, publishReplay, refCount, catchError, finalize } from
 import {Comment} from '../comment-section/comment';
 import { isPlatformBrowser } from '@angular/common';
 import { PostReadService } from '../post-read.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DateTime } from 'luxon';
 import { ApplicationContextService } from '../application-context.service';
 import { UnexpectedAjaxResult } from '../ajax.error';
@@ -32,6 +32,7 @@ export class PostDetailComponent implements OnInit {
       @Inject(PLATFORM_ID) private platformId: Object,
       private read : PostReadService,
       private route: ActivatedRoute,
+      private router: Router,
       private ctx: ApplicationContextService,
       private snack: MatSnackBar) { }
 
@@ -47,8 +48,8 @@ export class PostDetailComponent implements OnInit {
 
   onError(e: Error) : Observable<null> {
     try {
-      let s = this.snack.open(e.message, "再试一次", this.ctx.getValue('error-snackbar-config'));
-      s.onAction().subscribe(e => this.ngOnInit());
+      let s = this.snack.open(e.message, "回到首页", this.ctx.getValue('error-snackbar-config'));
+      s.onAction().subscribe(_ => this.router.navigate(["/"]));
     } catch(e) {}
     return of(null);
   }
