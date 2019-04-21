@@ -13,20 +13,20 @@ import { connect } from 'net';
 })
 export class NotFoundComponent implements OnInit {
 
-  @ViewChild("TheCircle", {read: ElementRef}) c: ElementRef;
-  deg: number = 0;
+  @ViewChild('TheCircle', {read: ElementRef}) c: ElementRef;
+  deg = 0;
   constructor(private titleService: Title,
-        @Optional()
+              @Optional()
         @Inject(RESPONSE)
         private response: Response,
-        @Inject(PLATFORM_ID) private platformId: Object,) {
+              @Inject(PLATFORM_ID) private platformId: Object, ) {
         }
 
   ngOnInit() {
     if (isPlatformServer(this.platformId)) {
       this.response.status(404);
     }
-    this.titleService.setTitle("“无穷之地”");
+    this.titleService.setTitle('“无穷之地”');
   }
 
 }

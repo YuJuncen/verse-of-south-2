@@ -21,20 +21,20 @@ import { MatSnackBar } from '@angular/material';
 
 })
 export class PostDetailComponent implements OnInit {
-  @ViewChild("content", {read: ElementRef}) cont: ElementRef;
-  @ViewChild("comments", {read: ElementRef}) comments : ElementRef;
-  @ViewChild("title", {read: ElementRef}) title: ElementRef;
+  @ViewChild('content', {read: ElementRef}) cont: ElementRef;
+  @ViewChild('comments', {read: ElementRef}) comments: ElementRef;
+  @ViewChild('title', {read: ElementRef}) title: ElementRef;
   titles: {title: string, ele: any}[] = [];
   comments$: Observable<Comment[]>;
   post$: Observable<DetailedPost>;
 
-  constructor(private titleService : Title,
-      @Inject(PLATFORM_ID) private platformId: Object,
-      private read : PostReadService,
-      private route: ActivatedRoute,
-      private router: Router,
-      private ctx: ApplicationContextService,
-      private snack: MatSnackBar) { }
+  constructor(private titleService: Title,
+              @Inject(PLATFORM_ID) private platformId: Object,
+              private read: PostReadService,
+              private route: ActivatedRoute,
+              private router: Router,
+              private ctx: ApplicationContextService,
+              private snack: MatSnackBar) { }
 
   getPublishTimeago() {
     return this.post$.pipe(
@@ -46,11 +46,11 @@ export class PostDetailComponent implements OnInit {
     );
   }
 
-  onError(e: Error) : Observable<null> {
+  onError(e: Error): Observable<null> {
     try {
-      let s = this.snack.open(e.message, "回到首页", this.ctx.getValue('error-snackbar-config'));
-      s.onAction().subscribe(_ => this.router.navigate(["/"]));
-    } catch(e) {}
+      const s = this.snack.open(e.message, '回到首页', this.ctx.getValue('error-snackbar-config'));
+      s.onAction().subscribe(_ => this.router.navigate(['/']));
+    } catch (e) {}
     return of(null);
   }
 
@@ -62,7 +62,7 @@ export class PostDetailComponent implements OnInit {
           finalize(this.ctx.getValue('endroll')),
           catchError(e => this.onError(e)))),
       catchError(e => this.onError(e)),
-      publishReplay(1), 
+      publishReplay(1),
       refCount());
     this.comments$ = this.post$.pipe(tap(p => this.titleService.setTitle(p.title)), map(p => p.comments));
   }
@@ -77,12 +77,11 @@ export class PostDetailComponent implements OnInit {
 
   onDOMLoaded = () => {
     this.titles = [];
-    console.debug("[POST DETAIL] onDOMLoaded called!")
     if (isPlatformBrowser(this.platformId)) {
-      this.cont.nativeElement.querySelectorAll("h1").forEach(e => {
+      this.cont.nativeElement.querySelectorAll('h1').forEach(e => {
         setTimeout(() => {
           this.titles.push({ele: e, title: e.textContent});
-        }, 0)
+        }, 0);
       });
     }
   }

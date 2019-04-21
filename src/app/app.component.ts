@@ -13,8 +13,8 @@ import { ApplicationContextService } from './application-context.service';
 })
 export class AppComponent {
   title = 'vos-fnt-ng';
-  routing: boolean = false;
-  userRouting : boolean = false;
+  routing = false;
+  userRouting = false;
   isDevMode: boolean = isDevMode();
   enableRoute = () => setTimeout(() => this.userRouting = true, 0);
   disableRoute = () => setTimeout(() => this.userRouting = false, 0);
@@ -30,7 +30,7 @@ export class AppComponent {
         setTimeout(() => this.routing = false, 0);
       }
     });
-    this.ctx.putValue('error-snackbar-config', {panelClass: "vos-warn", horizontalPosition: 'right'});
+    this.ctx.putValue('error-snackbar-config', {panelClass: 'vos-warn', horizontalPosition: 'right'});
     this.ctx.putValue('start-loading', this.enableRoute);
     this.ctx.putValue('endroll', this.disableRoute);
     this.ctx.putValue('dev-mode?', this.isDevMode);

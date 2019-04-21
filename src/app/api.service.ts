@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class ApiService {
-  private base =  "http://localhost:8000/resources"
+  private base =  'http://localhost:8000/resources';
 
   getPostById(id: number) {
     return `${this.base}/post/${id}`;

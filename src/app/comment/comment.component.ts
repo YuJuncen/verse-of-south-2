@@ -15,14 +15,14 @@ export class CommentComponent implements OnInit {
   @Input() readonly comment: Comment;
   @Input() readonly reply: Comment;
   @Output() replyRequest = new EventEmitter<Comment>();
-  gravatarAPI = "http://www.gravatar.com/avatar";
+  gravatarAPI = 'http://www.gravatar.com/avatar';
   get avatarURL() {
     return `${this.gravatarAPI}/${this.comment.publisherEmail}?d=retro`;
   }
 
   getPublishTimeago() {
-    this.comment.publishTime = this.comment.publishTime instanceof DateTime ? 
-      this.comment.publishTime : 
+    this.comment.publishTime = this.comment.publishTime instanceof DateTime ?
+      this.comment.publishTime :
       DateTime.fromISO(this.comment.publishTime, { zone: 'utc' });
     return format(this.comment.publishTime.toJSDate(), 'zh_CN');
   }

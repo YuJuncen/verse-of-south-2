@@ -3,10 +3,10 @@ import {Comment } from '../comment-section/comment';
 
 export enum FormatType {
     Markdown, PlainText, HTML
-};
+}
 
 export interface DetailedPost extends Post {
-    content: string,
-    formatType: FormatType,
-    comments: Comment[],
-};
+    content: string;
+    formatType: FormatType;
+    comments: Comment[];
+}

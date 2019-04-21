@@ -6,5 +6,5 @@ export interface Comment {
     content: string;
     publishTime: DateTime;
     publisherEmail?: string;
-    replyTo? : number;
+    replyTo?: number;
 }

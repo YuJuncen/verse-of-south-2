@@ -13,21 +13,21 @@ import { ApplicationContextService } from '../application-context.service';
   selector: 'app-search-post-list',
   templateUrl: './search-post-list.component.html',
   styleUrls: ['./search-post-list.component.scss'],
-  animations: [trigger("In", [
-    transition(":enter", [style({opacity: 0, transform: "translateY(10%)"}), animate('.25s', style({opacity: 1, transform: "translateY(0)"}))]),
-    transition(":leave", animate('.5s', style({opacity: 0})))
+  animations: [trigger('In', [
+    transition(':enter', [style({opacity: 0, transform: 'translateY(10%)'}), animate('.25s', style({opacity: 1, transform: 'translateY(0)'}))]),
+    transition(':leave', animate('.5s', style({opacity: 0})))
   ])],
 })
 export class SearchPostListComponent implements OnInit {
+  constructor(private postService: PostService,
+              private route: ActivatedRoute,
+              private ctx: ApplicationContextService) { }
   static LIMIT = 5;
   tags$: Observable<string[]>;
-  tagNotUse$: Observable<Set<String>>;
-  terms$: Observable<String[]>;
+  tagNotUse$: Observable<Set<string>>;
+  terms$: Observable<string[]>;
   posts$: Observable<Post[]>;
   params$: Observable<Params>;
-  constructor(private postService: PostService,
-             private route: ActivatedRoute,
-             private ctx: ApplicationContextService) { }
   
   mapToLen<T>(o: Observable<Array<T>>) {
     return o.pipe(map(a => a.length));
@@ -38,15 +38,15 @@ export class SearchPostListComponent implements OnInit {
     }
     return i;
   }
-  splitByCommaIfNeeded = this.splitIfNeeded(",");
+  splitByCommaIfNeeded = this.splitIfNeeded(',');
 
   ngOnInit() {
     this.params$ = this.route.queryParams;
-    this.tags$ = this.params$.pipe(map(url => url['tag']), map(this.splitByCommaIfNeeded));
-    this.terms$ = this.params$.pipe(map(url => url['plain']), map(this.splitByCommaIfNeeded));
-    let result$ = this.params$.pipe(
+    this.tags$ = this.params$.pipe(map(url => url.tag), map(this.splitByCommaIfNeeded));
+    this.terms$ = this.params$.pipe(map(url => url.plain), map(this.splitByCommaIfNeeded));
+    const result$ = this.params$.pipe(
       tap(() => this.ctx.getValue<() => void>('start-loading')()),
-      switchMap(url => this.postService.searchBreifPosts({tags: url['tag'], terms: url['plain']})(0, SearchPostListComponent.LIMIT)
+      switchMap(url => this.postService.searchBreifPosts({tags: url.tag, terms: url.plain})(0, SearchPostListComponent.LIMIT)
         .pipe(
           finalize(this.ctx.getValue('endroll')))
         ),

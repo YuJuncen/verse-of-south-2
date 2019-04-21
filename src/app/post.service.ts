@@ -16,19 +16,18 @@ export class PostService {
   private totalPost: number;
   private possibleEnded = false;
 
-  get totalPostCount() : number {
+  get totalPostCount(): number {
     return this.totalPost;
   }
 
-  from_json(post: any) : Post {
+  from_json(post: any): Post {
     return {...post, publishTime: DateTime.fromISO(post.publishTime, {zone: 'utc'})};
   }
 
-  getBreifPosts(limit: number, offset: number = 0) : Observable<Post[]> {
+  getBreifPosts(limit: number, offset: number = 0): Observable<Post[]> {
     if (this.possibleEnded || this.cached.length - offset >= limit) {
       return of(this.cached).pipe(map(a => a.slice(offset, offset + limit)));
     }
-    console.debug('offset: ', offset);
 
     return this.http.get<Post[]>(this.api.indexPosts(), {params: {
       limit: String(limit),
@@ -37,7 +36,7 @@ export class PostService {
       tap(ps => this.totalPost = ps['pagination'].total),
       map(a => a['result'].map(this.from_json)),
       tap(ps => {
-        this.cached = this.cached.concat(ps)
+        this.cached = this.cached.concat(ps);
         if (ps.length < limit) {
           this.possibleEnded = true;
         }
@@ -45,34 +44,33 @@ export class PostService {
     );
   }
 
-  getArchiveInfo() : Observable<ArchiveInfo[]> {
+  getArchiveInfo(): Observable<ArchiveInfo[]> {
     return this.http.get<ArchiveInfo[]>(this.api.getArchives()).pipe();
   }
 
-  getArchives(month: number, year: number) : Observable<Post[]> {
+  getArchives(month: number, year: number): Observable<Post[]> {
     return this.http.get(this.api.getArchivesOf(year, month))
       .pipe( map(ps => (ps as Post[]).map(this.from_json)));
   }
 
-  searchBreifPosts({terms = [], tags = []}: {terms: string[], tags: string[]}) : (offset: number, limit: number) => Observable<{result: Post[], unusedTagsName: Set<String>}> {
-    if (typeof(terms) === 'string') {terms = (terms as string).split(',')};
-    if (typeof(tags) === 'string') {tags = (tags as string).split(',')};
+  searchBreifPosts({terms = [], tags = []}: {terms: string[], tags: string[]}): (offset: number, limit: number) => Observable<{result: Post[], unusedTagsName: Set<string>}> {
+    if (typeof(terms) === 'string') {terms = (terms as string).split(','); }
+    if (typeof(tags) === 'string') {tags = (tags as string).split(','); }
     return (_offset, _limit) => this.http.get(this.api.searchPosts() , {params: {
       title: terms.join(' '),
       tags: tags.join(':')
     }}).pipe(
-      tap(console.debug),
       // the search page has no pagination; so temporally omit it.
       map(ps => ps['result']),
       map(ps => {
-        let notused = new Set();
-        for (const t of ps['tagsNotUse']) {
+        const notused = new Set();
+        for (const t of ps.tagsNotUse) {
           notused.add(t.name);
         }
-        return {unusedTagsName: notused, result: (ps['result'] as Post[]).map(this.from_json) }
+        return {unusedTagsName: notused, result: (ps.result as Post[]).map(this.from_json) };
       })
     );
   }
 
-  constructor(private http : HttpClient, private api: ApiService) { }
+  constructor(private http: HttpClient, private api: ApiService) { }
 }

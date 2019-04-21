@@ -14,7 +14,7 @@ export class CommentSectionComponent implements OnInit {
   comments: Comment[] = [];
   replyTo$ = new Subject<Comment>();
   commentTable = new Map<number, Comment>();
-  constructor() { 
+  constructor() {
   }
 
   add = (c) => this.comments.push(c);

@@ -1,9 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 export interface ArchiveInfo {
-  year: number,
-  month: number,
-  count: number,
+  year: number;
+  month: number;
+  count: number;
 }
 
 @Component({
@@ -13,7 +13,7 @@ export interface ArchiveInfo {
 })
 export class ArchiveListComponent implements OnInit {
 
-  @Input() archives: Array<ArchiveInfo>
+  @Input() archives: Array<ArchiveInfo>;
   constructor() { }
 
   ngOnInit() {

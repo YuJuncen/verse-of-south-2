@@ -12,11 +12,11 @@ import { Comment } from './comment-section/comment';
   providedIn: 'root'
 })
 export class PostReadService {
-  private fromString(desc: string) : FormatType {
+  private fromString(desc: string): FormatType {
     if (/markdown/i.exec(desc)) {
       return FormatType.Markdown;
     }
-    if (/plaintext/i.exec(desc)){
+    if (/plaintext/i.exec(desc)) {
       return FormatType.PlainText;
     }
     if (/html/i.exec(desc)) {
@@ -25,29 +25,29 @@ export class PostReadService {
     return FormatType.Markdown;
   }
 
-  private fromJson = (rawPost: Object) : DetailedPost => {
+  private fromJson = (rawPost: any): DetailedPost => {
     try {
-      return {...rawPost, 
-        formatType: this.fromString(rawPost['formatType'] as string), 
+      return {...rawPost,
+        formatType: this.fromString(rawPost['formatType'] as string),
         publishTime: DateTime.fromISO(rawPost['publishTime'], {zone: 'utc'})} as DetailedPost;
-    } catch(e) {
+    } catch (e) {
       throw new BadResponseFormat(rawPost);
     }
   }
 
-  getArticleFromId(id: number) : Observable<DetailedPost> {
+  getArticleFromId(id: number): Observable<DetailedPost> {
     return this.http.get(this.api.getPostById(id))
       .pipe(catchError(e => {
-        throw new SomeOtherException(e)
-      }), map(this.fromJson))
+        throw new SomeOtherException(e);
+      }), map(this.fromJson));
   }
 
   postCommment(publisher: string, content: string, to: number, extra: {
     email?: string,
     replyTo?: number,
     recaptcha?: string
-  }) : Observable<Comment> {
-    return this.http.post<Comment>(this.api.publishComment(), 
+  }): Observable<Comment> {
+    return this.http.post<Comment>(this.api.publishComment(),
       JSON.stringify({
         publisher_email: extra.email || null,
         reply_to: extra.replyTo || null,
@@ -56,14 +56,14 @@ export class PostReadService {
         to
       }), {
         headers: {
-          "Content-Type": "Application/json"
+          'Content-Type': 'Application/json'
         },
         params: {
           recaptcha: extra.recaptcha
         }
       }
     ).pipe(catchError(
-      e => {throw new SomeOtherException(e)}
+      e => {throw new SomeOtherException(e); }
     ));
   }
 

@@ -11,20 +11,19 @@ import { PostService } from '../post.service';
 @Component({
   selector: 'app-index-view',
   templateUrl: './index-view.component.html',
-  styleUrls: [ './index-view.component.md.scss', './index-view.component.scss',],
+  styleUrls: [ './index-view.component.md.scss', './index-view.component.scss', ],
 
 })
 export class IndexViewComponent implements OnInit {
   searchTerm: FormControl = new FormControl('');
   params$: Observable<Params>;
-  archives$: Observable<ArchiveInfo[]>
+  archives$: Observable<ArchiveInfo[]>;
 
   constructor(private titleService: Title,
               private router: Router,
               private arouter: ActivatedRoute,
               private parser: SearchParserService,
-              private postService: PostService)
-               { }
+              private postService: PostService) { }
 
   splitIfNeeded = (splitBy: string | RegExp) => (i: any) => {
       if (typeof(i) === 'string') {
@@ -34,33 +33,33 @@ export class IndexViewComponent implements OnInit {
   }
 
   joinUrlterms(url: Params) {
-    let tags = url['tag'] || [];
-    let terms = url['plain'] || [];
-    let splited = this.splitIfNeeded(',');
-    return `${splited(tags).map(t => `#{${t}}`).join(' ')} ${splited(terms).join(' ')}`.trim()
+    const tags = url.tag || [];
+    const terms = url.plain || [];
+    const splited = this.splitIfNeeded(',');
+    return `${splited(tags).map(t => `#{${t}}`).join(' ')} ${splited(terms).join(' ')}`.trim();
   }
 
   doSearch(term: string, skipLocationChange = false) {
-    if (term.length) { this.router.navigate(['search'], {queryParams: this.parser.parse(term.trim()), skipLocationChange}) }
-    else { 
+    if (term.length) { this.router.navigate(['search'], {queryParams: this.parser.parse(term.trim()), skipLocationChange}); } else {
         this.router.navigate(['/']);
     }
   }
 
   ngOnInit() {
     this.params$ = this.arouter.queryParams;
-    this.router.events.pipe(filter(e => e instanceof NavigationEnd)).subscribe(_ => this.searchTerm.markAsPristine())
+    this.router.events.pipe(filter(e => e instanceof NavigationEnd)).subscribe(_ => this.searchTerm.markAsPristine());
     this.params$.pipe(map(url => this.joinUrlterms(url))).subscribe(s => {
-      if (this.searchTerm.pristine)
-        this.searchTerm.setValue(s, {emitEvent: false})
-    })
+      if (this.searchTerm.pristine) {
+        this.searchTerm.setValue(s, {emitEvent: false});
+      }
+    });
     this.archives$ = this.postService.getArchiveInfo().pipe(publishReplay(1), refCount());
-    this.titleService.setTitle("南方之诗");
+    this.titleService.setTitle('南方之诗');
     this.searchTerm.valueChanges.pipe(
       debounceTime(500),
     ).
-    subscribe(e => this.doSearch(e))
+    subscribe(e => this.doSearch(e));
   }
-  
+
 
 }

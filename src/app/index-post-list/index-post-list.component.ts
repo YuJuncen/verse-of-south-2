@@ -10,23 +10,23 @@ import { ApplicationContextService } from '../application-context.service';
   selector: 'app-index-post-list',
   templateUrl: './index-post-list.component.html',
   styleUrls: ['./index-post-list.component.scss'],
-  animations: [trigger("In", [
-    transition(":enter", [style({ opacity: 0, transform: "translateY(10%)" }), animate('.25s', style({ opacity: 1, transform: "translateY(0)" }))]),
-    transition(":leave", animate('.5s', style({ opacity: 0 })))
+  animations: [trigger('In', [
+    transition(':enter', [style({ opacity: 0, transform: 'translateY(10%)' }), animate('.25s', style({ opacity: 1, transform: 'translateY(0)' }))]),
+    transition(':leave', animate('.5s', style({ opacity: 0 })))
   ])],
 })
 export class IndexPostListComponent implements OnInit, AfterViewInit {
   initialPosts$: Observable<Post[]>;
-  endro: boolean = false;
-  loading: boolean = false;
-  private offset: number = 0;
-  private total: number = -1;
+  endro = false;
+  loading = false;
+  private offset = 0;
+  private total = -1;
   private DEFAULT_LIMIT = 3;
-  @ViewChild("LoadMore", {read: ElementRef}) private ld : ElementRef;
-  loadMore$ : Subject<{}> = new Subject<{}>();
+  @ViewChild('LoadMore', {read: ElementRef}) private ld: ElementRef;
+  loadMore$: Subject<{}> = new Subject<{}>();
   constructor(private postService: PostService, private ctx: ApplicationContextService) { }
 
-  get isEnd() : boolean {
+  get isEnd(): boolean {
     console.log(this.offset, this.postService.totalPostCount);
     return this.offset >= this.postService.totalPostCount;
   }
@@ -34,21 +34,21 @@ export class IndexPostListComponent implements OnInit, AfterViewInit {
   next = (sink: any) => {
     // Do you hear the people sing?
     // 你听到命令式（人民）在歌唱了吗？
-    if (this.endro) return;
+    if (this.endro) { return; }
 
     this.ctx.getValue<() => void>('start-loading')();
     this.loading = true;
-    let posts$ = this.postService.getBreifPosts(this.DEFAULT_LIMIT, this.offset);
+    const posts$ = this.postService.getBreifPosts(this.DEFAULT_LIMIT, this.offset);
     this.offset += this.DEFAULT_LIMIT;
     posts$.pipe(
-        tap(ps => {if(this.isEnd) this.endro = true}),
+        tap(ps => {if (this.isEnd) { this.endro = true; }}),
         finalize(() => {
           this.ctx.getValue<() => void>('endroll')();
           this.loading = false;
         }),
         flatMap(ps => from(ps))
       )
-      .subscribe(p => sink.next(p))
+      .subscribe(p => sink.next(p));
   }
 
   ngAfterViewInit() {
@@ -58,11 +58,11 @@ export class IndexPostListComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.ctx.getValue<() => void>('start-loading')();
     this.offset += this.DEFAULT_LIMIT;
-    this.initialPosts$ = 
+    this.initialPosts$ =
       this.postService.getBreifPosts(this.DEFAULT_LIMIT).pipe(
-        tap(ps => {if(this.isEnd) this.endro = true}),
+        tap(ps => {if (this.isEnd) { this.endro = true; }}),
         finalize(() => this.ctx.getValue<() => void>('endroll')()),
-      )
+      );
   }
 
 }

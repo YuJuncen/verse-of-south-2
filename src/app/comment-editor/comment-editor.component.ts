@@ -15,9 +15,9 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./comment-editor.component.scss']
 })
 export class CommentEditorComponent implements OnInit {
-  @Input("replyTo") replyTo$: Observable<Comment>;
-  @Output("newComment") newComment = new EventEmitter<Comment>();
-  discardReply$ : Subject<[]> = new Subject<[]>();
+  @Input('replyTo') replyTo$: Observable<Comment>;
+  @Output() newComment = new EventEmitter<Comment>();
+  discardReply$: Subject<[]> = new Subject<[]>();
   whoToReply$: Observable<string>;
   hasSomeoneToReply$: Observable<boolean>;
 
@@ -34,9 +34,9 @@ export class CommentEditorComponent implements OnInit {
   siteKey: string = config.recaptchaWebsiteKey;
   constructor(
     private snake: MatSnackBar,
-    private post : PostReadService, 
+    private post: PostReadService,
     private ctx: ApplicationContextService,
-    private aroute : ActivatedRoute) { }
+    private aroute: ActivatedRoute) { }
 
   discardReply() {
     this.discardReply$.next([]);
@@ -58,10 +58,10 @@ export class CommentEditorComponent implements OnInit {
     return this.commentForm.get('replyTo');
   }
   get errors() {
-    return JSON.stringify(Object.entries(this.commentForm.controls).map(c => [c[0], JSON.stringify(c[1].errors)]).join(" || "));
+    return JSON.stringify(Object.entries(this.commentForm.controls).map(c => [c[0], JSON.stringify(c[1].errors)]).join(' || '));
   }
   get to() {
-    return this.commentForm.get("to");
+    return this.commentForm.get('to');
   }
 
   resetAll() {
@@ -74,7 +74,6 @@ export class CommentEditorComponent implements OnInit {
 
   toPublish() {
     if (this.commentForm.valid) {
-      console.info(`congruations! you just published : ${JSON.stringify(this.commentForm.value)}`)
       this.post.postCommment(this.author.value, this.content.value, this.to.value, {
         email: this.email.value || null,
         replyTo: this.replyTo.value || null,
@@ -82,41 +81,38 @@ export class CommentEditorComponent implements OnInit {
       }).pipe(
         catchError( (e) => {
           console.error(e);
-          this.snake.open(`失败了，具体的记录应该在控制台里面……`, "……", this.ctx.getValue('error-snackbar-config'));
+          this.snake.open(`失败了，具体的记录应该在控制台里面……`, '……', this.ctx.getValue('error-snackbar-config'));
           return of(null);
         }),
         finalize(() => this.resetAll())
       ).subscribe(c => {
-        if (c) this.newComment.emit(c);
-      })
+        if (c) { this.newComment.emit(c); }
+      });
     } else {
-      console.warn(`congruations! you cannot publish your comment since: ${this.errors}`)
+      console.warn(`congruations! you cannot publish your comment since: ${this.errors}`);
     }
     console.log(this.commentForm);
   }
 
   ngOnInit() {
     this.replyTo$ = this.replyTo$.pipe(
-      tap(p => console.debug(`replying to ${p.publisherName}`)), 
       shareReplay(1)
     );
     this.hasSomeoneToReply$ = merge(
-      this.replyTo$.pipe(map(_ => true)), 
-      this.discardReply$.pipe(map(_ => false)))
+      this.replyTo$.pipe(map(_ => true)),
+      this.discardReply$.pipe(map(_ => false)));
     this.whoToReply$ = this.replyTo$.pipe(map(c => c.publisherName));
     merge(this.replyTo$.pipe(map(c => c.id)), this.discardReply$.pipe(map(() => -1)))
       .subscribe(i => {
         const replyToInput = this.commentForm.get('replyTo');
-        if (i < 0) replyToInput.reset();
-        else replyToInput.setValue(i);
-      })
+        if (i < 0) { replyToInput.reset(); } else { replyToInput.setValue(i); }
+      });
     this.aroute.params
       .pipe(
-        tap(p => console.debug("params: ", p)),
-        map(p => Number.parseInt(p['id'])),
+        map(p => Number.parseInt(p.id)),
         catchError(_ => of(-1))
       )
-      .subscribe(id => this.to.setValue(id))
+      .subscribe(id => this.to.setValue(id));
   }
 
 }

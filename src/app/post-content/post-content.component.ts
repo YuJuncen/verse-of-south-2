@@ -12,13 +12,13 @@ import { FormatType } from '../post-detail/detailed-post';
   encapsulation: ViewEncapsulation.None
 })
 export class PostContentComponent implements OnInit, AfterViewInit {
-  @ViewChild("PostContent", {read: ElementRef}) post: ElementRef;
+  @ViewChild('PostContent', {read: ElementRef}) post: ElementRef;
   @Input() postText: string;
   @Input() postFormatType: FormatType;
   @Output() DOMLoaded = new EventEmitter<[]>();
   constructor() { }
 
-  parsedPost  : string ;
+  parsedPost: string ;
 
   ngOnInit() {
     const md = MarkdownIt();
@@ -27,10 +27,9 @@ export class PostContentComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.post.nativeElement.querySelectorAll("pre code").forEach(c => {
+    this.post.nativeElement.querySelectorAll('pre code').forEach(c => {
       highlightBlock(c);
     });
-    console.debug("[POST CONTENT] DOM init!")
     setTimeout(() => this.DOMLoaded.emit([]), 0);
   }
 

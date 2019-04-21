@@ -14,17 +14,17 @@ class ConfilctedKey<T> {
   providedIn: 'root'
 })
 export class ApplicationContextService {
-  @Output() confilct : EventEmitter<ConfilctedKey<any>> = new EventEmitter(); 
-  private values : Map<string, ContextValue<any>> = new Map();
+  @Output() confilct: EventEmitter<ConfilctedKey<any>> = new EventEmitter();
+  private values: Map<string, ContextValue<any>> = new Map();
   constructor() { }
 
-  public putValue(name: string, value: any, config: {replaceable: boolean} = {replaceable: true}) : boolean {
+  public putValue(name: string, value: any, config: {replaceable: boolean} = {replaceable: true}): boolean {
     if (this.values[name]) {
       if (this.values.get(name).replaceable) {
         this.confilct.emit(ConfilctedKey.replaced(name, this.values.get(name).value));
-        this.values.set(name, new ContextValue(value, config.replaceable))
+        this.values.set(name, new ContextValue(value, config.replaceable));
         return true;
-      } 
+      }
       this.confilct.emit(ConfilctedKey.failedToReplace(name));
       return false;
     }
@@ -32,9 +32,9 @@ export class ApplicationContextService {
     return true;
   }
 
-  public getValue<T>(name: string, defaultValue: T = null) : T {
+  public getValue<T>(name: string, defaultValue: T = null): T {
     try {
-      return <T>this.values.get(name).value;
+      return this.values.get(name).value as T;
     } catch (e) {
       return defaultValue;
     }

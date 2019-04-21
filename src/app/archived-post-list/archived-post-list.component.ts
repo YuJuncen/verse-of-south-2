@@ -16,13 +16,13 @@ export class ArchivedPostListComponent implements OnInit {
   month$: Observable<number>;
   posts$: Observable<Post[]>;
   loading$: Observable<boolean>;
-  
+
   constructor(private route: ActivatedRoute,
               private service: PostService) { }
 
   ngOnInit() {
-    this.year$ = this.route.params.pipe(map(p => p['year']));
-    this.month$ = this.route.params.pipe(map(p => p['month']));
+    this.year$ = this.route.params.pipe(map(p => p.year));
+    this.month$ = this.route.params.pipe(map(p => p.month));
     this.posts$ = this.route.params.pipe(
       switchMap(p => this.service.getArchives(p.month, p.year)),
       publishReplay(1),
@@ -31,7 +31,7 @@ export class ArchivedPostListComponent implements OnInit {
     this.loading$ = merge(
       this.posts$.pipe(mapTo(false)),
       this.route.params.pipe(mapTo(true)),
-    )
+    );
   }
 
 }
