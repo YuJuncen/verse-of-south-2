@@ -8,6 +8,12 @@
         border-radius: 0;
     }
 
+    .give-up-reply {
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
     .mat-form-field-appearance-fill .mat-form-field-flex {
         border-radius: 0;
     }

@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import { Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 import { ApplicationContextService } from './application-context.service';
+const markdown = require('markdown-it')();
 
 @Component({
   selector: 'app-root',
@@ -34,5 +35,6 @@ export class AppComponent {
     this.ctx.putValue('start-loading', this.enableRoute);
     this.ctx.putValue('endroll', this.disableRoute);
     this.ctx.putValue('dev-mode?', this.isDevMode);
+    this.ctx.putValue('markdown', markdown);
   }
 }

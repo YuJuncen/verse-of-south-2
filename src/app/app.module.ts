@@ -22,6 +22,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatProgressBarModule, MatProgressSpinnerModule, MatSnackBarModule, MatTooltipModule, MatInputModule, MatFormFieldModule, MatButtonModule } from '@angular/material';
 import { NgxCaptchaModule } from 'ngx-captcha';
 import { TextFieldModule } from '@angular/cdk/text-field';
+import { AboutPageComponent } from './about-page/about-page.component';
+import { AppFaviconComponent } from './app-favicon/app-favicon.component';
 
 
 @NgModule({
@@ -40,6 +42,8 @@ import { TextFieldModule } from '@angular/cdk/text-field';
     ArchiveListComponent,
     ArchivedPostListComponent,
     PostListComponent,
+    AboutPageComponent,
+    AppFaviconComponent
   ],
   imports: [
     ReactiveFormsModule,

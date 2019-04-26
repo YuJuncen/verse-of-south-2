@@ -1,0 +1,6 @@
+<div class="vos-aboutpage-wrapper">
+  <header>
+    <app-favicon></app-favicon>
+  </header>
+  <app-post-content role="document" *ngIf="post$ | async" [postText]="post$ | async" ></app-post-content>
+</div>

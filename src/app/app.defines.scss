@@ -22,6 +22,11 @@ $serif: '宋体', serif;
     .mat-button-wrapper {
         color: white;
     }
+
+    @media (min-width:720px) {
+        border-radius: 0 !important;
+        box-shadow: none !important;
+    }
 }
 
 .vos-desktop-only {

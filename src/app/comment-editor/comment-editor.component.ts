@@ -70,6 +70,7 @@ export class CommentEditorComponent implements OnInit {
     this.recaptcha.reset();
     this.discardReply$.next([]);
     this.content.reset();
+    this.commenting = false;
   }
 
   toPublish() {
@@ -96,6 +97,7 @@ export class CommentEditorComponent implements OnInit {
 
   ngOnInit() {
     this.replyTo$ = this.replyTo$.pipe(
+      tap(() => this.commenting = true),
       shareReplay(1)
     );
     this.hasSomeoneToReply$ = merge(

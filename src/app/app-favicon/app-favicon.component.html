@@ -1,0 +1,8 @@
+<div class="favicon-wrapper">
+<img class="favicon" 
+    [style.width] = "faviconWidth || '128px'" 
+    src="/assets/favicons/safari-pinned-tab.svg" alt="图标">
+<h1> 南方之诗 <span *ngIf="version" class="version">{{ version }}</span></h1>
+<a *ngIf="githubPath" [href]="githubPath"> 源代码</a>
+<p *ngIf="mailAddr"> 联系作者: {{ mailAddr }}</p>
+</div>

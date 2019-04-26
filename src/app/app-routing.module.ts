@@ -6,9 +6,11 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { IndexPostListComponent } from './index-post-list/index-post-list.component';
 import { SearchPostListComponent } from './search-post-list/search-post-list.component';
 import { ArchivedPostListComponent } from './archived-post-list/archived-post-list.component';
+import { AboutPageComponent } from './about-page/about-page.component';
 
 const routes: Routes = [
-  { path: 'post/:id', component: PostDetailComponent } ,
+  { path: 'post/:id', component: PostDetailComponent },
+  { path: 'about', component: AboutPageComponent},
   { path: '', component: IndexViewComponent , children: [
     {path: '', component: IndexPostListComponent},
     {path: 'search', component: SearchPostListComponent},

@@ -14,7 +14,7 @@ import { FormatType } from '../post-detail/detailed-post';
 export class PostContentComponent implements OnInit, AfterViewInit {
   @ViewChild('PostContent', {read: ElementRef}) post: ElementRef;
   @Input() postText: string;
-  @Input() postFormatType: FormatType;
+  @Input() postFormatType = FormatType.Markdown;
   @Output() DOMLoaded = new EventEmitter<[]>();
   constructor() { }
 
@@ -22,6 +22,7 @@ export class PostContentComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     const md = MarkdownIt();
+    console.log(this.postText);
     const result = md.render(this.postText);
     this.parsedPost = result;
   }

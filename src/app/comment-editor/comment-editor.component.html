@@ -1,5 +1,15 @@
 <div>
   <form id="comment-form" [formGroup]="commentForm">
+    <div class="reply-info-container" *ngIf="commenting && (hasSomeoneToReply$ | async)">
+      <input hidden formControlName="replyTo">
+      <input hidden fornControlName="to">
+      <span class="reply-info">
+        回复给：{{ whoToReply$ | async }}
+      </span>
+      <span class="give-up-reply" (click)="discardReply()">
+        ✕
+      </span>
+    </div>
     <div id="first-line" *ngIf="commenting">
       <mat-form-field appearance="standard" color="dark">
         <mat-label>你的名字</mat-label>
@@ -11,16 +21,6 @@
           matTooltip="若是写了邮箱，便可以显示来自 Gravatar 的头像；你的邮箱不会在评论中出现。">
         <mat-label>你的邮箱</mat-label>
       </mat-form-field>
-    </div>
-    <div class="reply-info-container" *ngIf="commenting && (hasSomeoneToReply$ | async)">
-      <input hidden formControlName="replyTo">
-      <input hidden fornControlName="to">
-      <span class="reply-info">
-        回复给：{{ whoToReply$ | async }}
-      </span>
-      <span (click)="discardReply()">
-        ✕
-      </span>
     </div>
     <mat-form-field appearance="standard" id="comment">
       <textarea (focus)="commenting = true" matInput id="content" formControlName="content" placeholder="来写点啥吧。"
