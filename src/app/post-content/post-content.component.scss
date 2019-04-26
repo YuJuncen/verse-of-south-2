@@ -1,16 +1,5 @@
 /** common CSS Start */
-$sans-serif: '苹方',
-'微软雅黑',
-'MS YaHei',
-'Noto Sans',
-sans-serif;
-$monospace: 'Menlo',
-'Ubuntu Mono',
-'Consolas',
-'Source Code Pro',
-monospace;
-$secondary-text: rgba(0, 0, 0, 0.7);
-$prime-color: #0D566E;
+@import '../app.defines.scss';
 
 
 #post-content {
@@ -19,9 +8,21 @@ $prime-color: #0D566E;
         font-family: '宋体', serif;
     }
 
+    ul {
+        list-style: square;
+    }
+
     h1 {
         font-size: 1.5em;
         font-family: '宋体', serif;
+    }
+
+    a {
+        color: $prime-color;
+    }
+
+    a:visited {
+        color: map-get($mat-primary, darker);
     }
 
     code:not(.hljs) {

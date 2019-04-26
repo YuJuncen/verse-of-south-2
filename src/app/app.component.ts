@@ -13,7 +13,6 @@ const markdown = require('markdown-it')();
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'vos-fnt-ng';
   routing = false;
   userRouting = false;
   isDevMode: boolean = isDevMode();
