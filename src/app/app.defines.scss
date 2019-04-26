@@ -1,5 +1,3 @@
-@import './app.material.scss';
-
 $sans-serif: '苹方',
 '微软雅黑',
 'MS YaHei',
@@ -10,11 +8,32 @@ $monospace: 'Menlo',
 'Consolas',
 'Source Code Pro',
 monospace;
-$secondary-text: $dark-accent-text;
+$mat-primary: (
+  main: #0d566e,
+  lighter: #b6ccd4,
+  darker: #073c51,
+  200: #0d566e,
+);
+
+$mat-accent: (
+  main: #77969a,
+  lighter: #d6e0e1,
+  darker: #5a797e,
+  200: #77969a,
+);
+
+$mat-warn: (
+  main: #cb1b45,
+  lighter: #efbbc7,
+  darker: #b8102e,
+  200: #cb1b45,
+);
+$secondary-text: rgba(0, 0, 0, .78);
 $prime-color: map-get($mat-primary, main);
 $secondary-color: map-get($mat-accent, main);
 $warn: map-get($mat-warn, main);
 $serif: '宋体', serif;
+
 
 .vos-warn {
     background: $warn !important;

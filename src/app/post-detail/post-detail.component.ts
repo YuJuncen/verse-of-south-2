@@ -13,6 +13,7 @@ import { DateTime } from 'luxon';
 import { ApplicationContextService } from '../application-context.service';
 import { UnexpectedAjaxResult } from '../ajax.error';
 import { MatSnackBar } from '@angular/material';
+import { SeoService } from '../seo.service';
 
 @Component({
   selector: 'app-post-detail',
@@ -34,14 +35,17 @@ export class PostDetailComponent implements OnInit {
               private route: ActivatedRoute,
               private router: Router,
               private ctx: ApplicationContextService,
-              private snack: MatSnackBar) { }
+              private snack: MatSnackBar,
+              private seo: SeoService) { }
+
+  getLuxonTime = time => time instanceof DateTime ? time : DateTime.fromISO(time, {
+    zone: 'utc'
+  }) 
 
   getPublishTimeago() {
     return this.post$.pipe(
       map(p => p.publishTime),
-      map(time => time instanceof DateTime ? time : DateTime.fromISO(time, {
-        zone: 'utc'
-      })),
+      map(this.getLuxonTime),
       map(time => format(time.toJSDate(), 'zh_CN'))
     );
   }
@@ -65,6 +69,18 @@ export class PostDetailComponent implements OnInit {
       publishReplay(1),
       refCount());
     this.comments$ = this.post$.pipe(tap(p => this.titleService.setTitle(p.title)), map(p => p.comments));
+    this.post$.subscribe(p => {
+      this.seo.generateTags({
+        title: p.title,
+        description: p.intro || "这是一篇不知所云的文章。",
+        type: 'article',
+        post: { 
+          publishTime: this.getLuxonTime(p.publishTime),
+          postId: p.id,
+          tags: p.tags.map(t => t.name),
+        }
+      })
+    })
   }
 
   goToComment() {

@@ -12,6 +12,7 @@ export class AppFaviconComponent implements OnInit {
   @Input() githubPath = this.ctx.getValue<string>('github-repo', null);
   @Input() mailAddr = this.ctx.getValue<string>('mail-addr', null);
   @Input() version = this.ctx.getValue<string>('app-version', null);
+  @Input() faviconWidth : string | number = '128px';
   ngOnInit() {
   }
 

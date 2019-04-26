@@ -1,7 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { isDevMode } from '@angular/core';
-import { Observable, of, Subject } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 import { ApplicationContextService } from './application-context.service';
@@ -35,5 +33,6 @@ export class AppComponent {
     this.ctx.putValue('endroll', this.disableRoute);
     this.ctx.putValue('dev-mode?', this.isDevMode);
     this.ctx.putValue('markdown', markdown);
+    this.ctx.putValue('server-name', 'vosouth.net');
   }
 }

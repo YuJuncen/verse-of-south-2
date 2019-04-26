@@ -7,6 +7,7 @@ import { FormControl } from '@angular/forms';
 import { SearchParserService } from '../search-parser.service';
 import { ArchiveInfo } from '../archive-list/archive-list.component';
 import { PostService } from '../post.service';
+import { SeoService } from '../seo.service';
 
 @Component({
   selector: 'app-index-view',
@@ -23,7 +24,8 @@ export class IndexViewComponent implements OnInit {
               private router: Router,
               private arouter: ActivatedRoute,
               private parser: SearchParserService,
-              private postService: PostService) { }
+              private postService: PostService,
+              private seo: SeoService) { }
 
   splitIfNeeded = (splitBy: string | RegExp) => (i: any) => {
       if (typeof(i) === 'string') {
@@ -59,6 +61,7 @@ export class IndexViewComponent implements OnInit {
       debounceTime(500),
     ).
     subscribe(e => this.doSearch(e));
+    this.seo.generateTags({});
   }
 
 

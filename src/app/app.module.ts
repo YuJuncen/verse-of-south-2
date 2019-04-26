@@ -48,7 +48,7 @@ import { AppFaviconComponent } from './app-favicon/app-favicon.component';
   imports: [
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    BrowserModule.withServerTransition({appId: 'verse-of-south'}),
+    BrowserModule.withServerTransition({appId: 'vos-fnt-ng'}),
     HttpClientModule,
     AppRoutingModule,
     MatProgressSpinnerModule,
