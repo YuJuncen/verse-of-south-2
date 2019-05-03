@@ -7,7 +7,7 @@ import { ApplicationContextService } from './application-context.service';
 })
 export class SeoService {
 
-  constructor(private meta: Meta, private ctx: ApplicationContextService) { }
+  constructor(private meta: Meta) { }
   public generateTags(config) {
     config = {
       title: "南方之诗",
@@ -22,7 +22,7 @@ export class SeoService {
     this.meta.updateTag({ property: 'og:title', content: config.title });
     this.meta.updateTag({ property: 'og:description', content: config.description });
     this.meta.updateTag({ property: 'og:image', content: config.image });
-    this.meta.updateTag({ property: 'og:url', content: `https://${this.ctx.getValue<string>('server-name', 'localhost:4200')}/${config.post ?  `post/${config.post.postId}` : ""}` });
+    this.meta.updateTag({ property: 'og:url', content: `https://vosouth.net/${config.post ?  `post/${config.post.postId}` : ""}` });
     this.meta.updateTag({ property: 'og:locale', content: 'zh_CN'});
 
     this.meta.updateTag({ name: 'description', content: config.describtion});
@@ -31,14 +31,14 @@ export class SeoService {
       const post = config.post;
 
       const tags = post.tags || [];
+      this.meta.removeTag('og:article:tags');
       for (let t of tags) {
         this.meta.addTag({property: 'og:article:tags', content: t})
       }
-      this.meta.addTag({name: 'keywords', content: tags.join(',')})
+      this.meta.updateTag({name: 'keywords', content: tags.join(',')})
 
       if (post.publishTime) {
-        this.meta.addTag({property: 'og:publish_time', content: post.publishTime.toString()});
-
+        this.meta.updateTag({property: 'og:publish_time', content: post.publishTime.toString()});
       }
     }
   }

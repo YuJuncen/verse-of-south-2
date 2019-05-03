@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import config from '../app.config';
 import { Observable, Subject, merge, of } from 'rxjs';
 import { tap, map, shareReplay, catchError, finalize } from 'rxjs/operators';
 import { Comment } from '../comment-section/comment';
@@ -31,12 +30,12 @@ export class CommentEditorComponent implements OnInit {
     to: new FormControl('', Validators.required),
     replyTo: new FormControl('')
   });
-  siteKey: string = config.recaptchaWebsiteKey;
+  siteKey: string = this.ctx.getValue('recaptcha-sitekey');
   constructor(
     private snake: MatSnackBar,
     private post: PostReadService,
     private ctx: ApplicationContextService,
-    private aroute: ActivatedRoute) { }
+    private aroute: ActivatedRoute,) { }
 
   discardReply() {
     this.discardReply$.next([]);

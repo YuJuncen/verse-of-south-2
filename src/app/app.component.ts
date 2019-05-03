@@ -3,6 +3,7 @@ import { isDevMode } from '@angular/core';
 import { Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 import { ApplicationContextService } from './application-context.service';
+const config = require('./app.config') || {};
 const markdown = require('markdown-it')();
 
 @Component({
@@ -33,6 +34,7 @@ export class AppComponent {
     this.ctx.putValue('endroll', this.disableRoute);
     this.ctx.putValue('dev-mode?', this.isDevMode);
     this.ctx.putValue('markdown', markdown);
-    this.ctx.putValue('server-name', 'vosouth.net');
+    this.ctx.putValue('api-site', config.apiHost || "http://localhost:1234/resources");
+    this.ctx.putValue('recaptcha-sitekey', config.recaptchaWebsiteKey);
   }
 }

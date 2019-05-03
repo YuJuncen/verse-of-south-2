@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
+import { ApplicationContextService } from './application-context.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
-  private base =  'http://localhost:8000/resources';
+  private base = this.ctx.getValue<string>('api-site', 'http://127.0.0.1:1234/resources');
 
   getPostById(id: number) {
     return `${this.base}/post/${id}`;
@@ -30,5 +31,5 @@ export class ApiService {
     return `${this.base}/post/comment`;
   }
 
-  constructor() { }
+  constructor(private ctx: ApplicationContextService) { }
 }
