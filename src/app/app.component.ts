@@ -3,6 +3,7 @@ import { isDevMode } from '@angular/core';
 import { Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 import { ApplicationContextService } from './application-context.service';
+
 const config = require('./app.config') || {};
 const markdown = require('markdown-it')();
 

@@ -6,7 +6,8 @@ import { map, shareReplay } from 'rxjs/operators';
 @Component({
   selector: 'app-comment-section',
   templateUrl: './comment-section.component.html',
-  styleUrls: ['./comment-section.component.scss']
+    styleUrls: ['./comment-section.component.scss']
+
 })
 export class CommentSectionComponent implements OnInit {
 
@@ -14,13 +15,10 @@ export class CommentSectionComponent implements OnInit {
   comments: Comment[] = [];
   replyTo$ = new Subject<Comment>();
   commentTable = new Map<number, Comment>();
-  constructor() {
-  }
+  constructor() { }
 
   add = (c) => this.comments.push(c);
-
   ngOnInit() {
-
     this.comments$.subscribe(cs => cs.forEach(c => {
       this.comments.push(c);
       this.commentTable.set(c.id, c);
