@@ -28,6 +28,7 @@ $prime-color: #0D566E;
 
     #article-container {
         flex: 75%;
+        overflow: scroll;
     }
 
     nav.article-nav {

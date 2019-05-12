@@ -92,13 +92,13 @@ export class PostDetailComponent implements OnInit {
   }
 
   onDOMLoaded = () => {
-    this.titles = [];
     if (isPlatformBrowser(this.platformId)) {
-      this.cont.nativeElement.querySelectorAll('h1').forEach(e => {
-        setTimeout(() => {
+      setTimeout( () => {
+        this.titles = [];
+        this.cont.nativeElement.querySelectorAll('h1').forEach(e => {
           this.titles.push({ele: e, title: e.textContent});
-        }, 0);
-      });
+        })
+      }, 0);
     }
   }
 }

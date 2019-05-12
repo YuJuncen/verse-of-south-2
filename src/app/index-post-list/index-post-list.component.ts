@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { PostService } from '../post.service';
 import { Post } from '../index-view/post';
-import { Observable, fromEvent, Subject, from } from 'rxjs';
-import { finalize, mapTo, tap, flatMap } from 'rxjs/operators';
+import { Observable, fromEvent, Subject, from, of } from 'rxjs';
+import { finalize, mapTo, tap, flatMap, catchError } from 'rxjs/operators';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { ApplicationContextService } from '../application-context.service';
 
@@ -27,7 +27,6 @@ export class IndexPostListComponent implements OnInit, AfterViewInit {
   constructor(private postService: PostService, private ctx: ApplicationContextService) { }
 
   get isEnd(): boolean {
-    console.log(this.offset, this.postService.totalPostCount);
     return this.offset >= this.postService.totalPostCount;
   }
 
@@ -38,7 +37,8 @@ export class IndexPostListComponent implements OnInit, AfterViewInit {
 
     this.ctx.getValue<() => void>('start-loading')();
     this.loading = true;
-    const posts$ = this.postService.getBreifPosts(this.DEFAULT_LIMIT, this.offset);
+    const posts$ = this.postService
+      .getBreifPosts(this.DEFAULT_LIMIT, this.offset);
     this.offset += this.DEFAULT_LIMIT;
     posts$.pipe(
         tap(ps => {if (this.isEnd) { this.endro = true; }}),
@@ -52,7 +52,9 @@ export class IndexPostListComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    fromEvent(this.ld.nativeElement, 'click').pipe(mapTo({})).subscribe(e => this.loadMore$.next(e));
+    fromEvent(this.ld.nativeElement, 'click')
+      .pipe(mapTo({}))
+      .subscribe(e => this.loadMore$.next(e));
   }
 
   ngOnInit() {

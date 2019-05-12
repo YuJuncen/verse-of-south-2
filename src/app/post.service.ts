@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import MOCK_POSTS from './index-view/mock-posts';
-import { Observable, of, from } from 'rxjs';
+import { Observable, of, from, throwError } from 'rxjs';
 import { take, map, delay, repeat, tap, flatMap, skip, catchError} from 'rxjs/operators';
 import { Post, Tag } from './index-view/post';
 import { HttpClient } from '@angular/common/http';
 import { DateTime, Zone } from 'luxon';
 import {ArchiveInfo} from './archive-list/archive-list.component';
 import { ApiService } from './api.service';
+import { SomeOtherException } from './ajax.error';
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +34,10 @@ export class PostService {
       limit: String(limit),
       offset: String(offset),
     }}).pipe(
+      catchError(error => {
+        console.error("[INDEX_POSTS]Error occuried: ", error, error.error);
+        return throwError(new SomeOtherException(new Error("Cannot do ajax.")));
+      }),
       tap(ps => this.totalPost = ps['pagination'].total),
       map(a => a['result'].map(this.from_json)),
       tap(ps => {

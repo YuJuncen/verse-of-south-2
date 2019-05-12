@@ -31,10 +31,6 @@ export class SeoService {
       const post = config.post;
 
       const tags = post.tags || [];
-      this.meta.removeTag('og:article:tags');
-      for (let t of tags) {
-        this.meta.addTag({property: 'og:article:tags', content: t})
-      }
       this.meta.updateTag({name: 'keywords', content: tags.join(',')})
 
       if (post.publishTime) {

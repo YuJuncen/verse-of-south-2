@@ -5,7 +5,7 @@ import { ApplicationContextService } from './application-context.service';
   providedIn: 'root'
 })
 export class ApiService {
-  private base = this.ctx.getValue<string>('api-site', 'http://127.0.0.1:1234/resources');
+  private base = this.ctx.getValue<string>('api-site');
 
   getPostById(id: number) {
     return `${this.base}/post/${id}`;
