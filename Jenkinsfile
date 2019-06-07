@@ -32,7 +32,8 @@ echo 'module.exports = { \
 
         stage("deploy") {
             steps {
-                sh 'scp -P 233 dist/server.js vosouth.net:/var/www/static'
+                sh 'cat dist/server.js'
+                echo "This is server.js!"
             }
         }
     }
