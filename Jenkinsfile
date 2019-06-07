@@ -24,6 +24,8 @@ echo 'module.exports = { \
 
         stage("build") {
             steps {
+                // this registry just for local test.
+                sh 'npm i --registry=https://registry.npm.taobao.org'
                 sh 'npm run build:ssr'
             }
         }
