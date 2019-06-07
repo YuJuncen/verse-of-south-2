@@ -31,9 +31,9 @@ echo 'module.exports = { \
         }
 
         stage("deploy") {
-            sh '''
-scp -P 233 dist/server.js vosouth.net:/var/www/static
-            '''
+            steps {
+                sh 'scp -P 233 dist/server.js vosouth.net:/var/www/static'
+            }
         }
     }
 }
