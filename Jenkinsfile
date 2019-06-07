@@ -29,11 +29,5 @@ echo 'module.exports = { \
                 sh 'npm run build:ssr'
             }
         }
-
-        stage("run") {
-            steps {
-                sh 'npm run serve:ssr'
-            }
-        }
     }
 }
