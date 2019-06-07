@@ -24,13 +24,13 @@ echo 'module.exports = { \
 
         stage("build") {
             steps {
-                sh 'npm build:ssr'
+                sh 'npm run build:ssr'
             }
         }
 
         stage("run") {
             steps {
-                sh 'npm serve:ssr'
+                sh 'npm run serve:ssr'
             }
         }
     }
