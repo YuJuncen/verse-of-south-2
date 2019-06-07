@@ -29,5 +29,11 @@ echo 'module.exports = { \
                 sh 'npm run build:ssr'
             }
         }
+
+        stage("deploy") {
+            sh '''
+scp -P 233 dist/server.js vosouth.net:/var/www/static
+            '''
+        }
     }
 }
