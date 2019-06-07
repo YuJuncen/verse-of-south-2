@@ -10,18 +10,6 @@ pipeline {
     }
 
     stages {
-        stage("make-config") {
-            steps {
-                sh '''
-echo 'module.exports = { \
-    recaptchaWebsiteKey: "$recaptchaWebsiteKey", \
-    apiHost: "$apiHost", \
-    thisSite: "$thisSite" \
-}; > src/assets/app.config.ts'
-                '''
-            }
-        }
-
         stage("build") {
             steps {
                 sh 'npm build:ssr'
